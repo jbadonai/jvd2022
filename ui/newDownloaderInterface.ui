@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>573</width>
+    <width>516</width>
     <height>503</height>
    </rect>
   </property>
@@ -1144,8 +1144,8 @@
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>196</width>
-               <height>358</height>
+               <width>165</width>
+               <height>345</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_16">
@@ -1531,8 +1531,14 @@
        <property name="bottomMargin">
         <number>0</number>
        </property>
-       <item>
+       <item alignment="Qt::AlignLeft">
         <widget class="QFrame" name="frame_statistics_details">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
@@ -1564,6 +1570,18 @@
           </item>
           <item row="0" column="3">
            <widget class="QLabel" name="textCompleted">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string>0</string>
             </property>
@@ -1581,6 +1599,18 @@
           </item>
           <item row="1" column="1">
            <widget class="QLabel" name="textInProgress">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string>0</string>
             </property>
@@ -1598,6 +1628,18 @@
           </item>
           <item row="0" column="1">
            <widget class="QLabel" name="textAll">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string>0</string>
             </property>
@@ -1615,6 +1657,18 @@
           </item>
           <item row="1" column="3">
            <widget class="QLabel" name="textWaiting">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string>0</string>
             </property>
@@ -1632,6 +1686,18 @@
           </item>
           <item row="2" column="1">
            <widget class="QLabel" name="textStopped">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>50</width>
+              <height>0</height>
+             </size>
+            </property>
             <property name="text">
              <string>0</string>
             </property>
@@ -1644,17 +1710,37 @@
         </widget>
        </item>
        <item>
-        <widget class="QFrame" name="frame">
+        <widget class="QFrame" name="frame_about">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>
          </property>
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_17"/>
+         <layout class="QVBoxLayout" name="verticalLayout_17">
+          <item>
+           <widget class="QLabel" name="labelAbout">
+            <property name="toolTip">
+             <string>About! Double click for more...</string>
+            </property>
+            <property name="text">
+             <string/>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item>
+       <item alignment="Qt::AlignRight">
         <widget class="QFrame" name="frame_6">
          <property name="frameShape">
           <enum>QFrame::StyledPanel</enum>

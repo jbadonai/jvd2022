@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QMainWindow, QApplication, QSizeGrip, \
+from PyQt5.QtWidgets import QMainWindow, QApplication, QSizeGrip,QLineEdit, \
     QMessageBox,QInputDialog, QVBoxLayout,  QSizePolicy
 from PyQt5.QtCore import Qt, QPropertyAnimation, QEasingCurve, QBasicTimer
 from PyQt5.QtGui import QIcon
@@ -64,6 +64,7 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.setupUi(self)
             self.setWindowFlag(Qt.FramelessWindowHint)
             self.buttonTheme.setIcon(QIcon(":/white icons/White icon/sun.svg"))
+            self.setWindowIcon(QIcon(":/icons/jba logo.png"))
             self.activation_in_progress = False
             self.threadController = {}
 
@@ -196,6 +197,9 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.buttonExpandAll.clicked.connect(self.expand_all)
             self.buttonCollapseAll.clicked.connect(self.collapse_all)
             # self.textLicense.textChanged.connect(self.proof_read_license_code)
+            self.buttonTitleIcon.clicked.connect(self.about_me)
+            self.buttonUser.clicked.connect(self.about_user)
+            self.buttonUser.setToolTip("License Owner! Click for more...")
 
             # application ACTIVATION
             # ----------------------------------------------------------------------------
@@ -214,6 +218,12 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.labelEmailAddress.installEventFilter(self)
             self.labelEmailAddress.setToolTip("Not a valid Email Address? or License was not received after 5mins. \nDouble Click here to request for a change.")
             self.buttonAddNewDownload.installEventFilter(self)
+            self.labelAbout.installEventFilter(self)
+
+            self.textOwner.installEventFilter(self)
+            self.textOwner.setToolTip("License Owner! Double click for more...")
+
+            self.labelSettings.installEventFilter(self)
 
             #Extra-------------------------------------
             self.license_point_of_failure = None
@@ -222,6 +232,57 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
 
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > __init__(): {e}")
+
+    def reset_me(self):
+        user = self.database.get_settings('owner')
+        if str(user).__contains__("_"):
+            username = str(user).split("-")[0].strip()
+            email = str(user).split("-")[1].strip()
+        else:
+            username = email = user
+
+        reset = self.msgBox.show_question("RESET?", "Reset Application to factory defaul? \n\nAll settings and license will be lost.")
+        if self.msgBox.Yes:
+            password, ok = QInputDialog.getText(self, "Password", "", QLineEdit.EchoMode.Password)
+            if ok is True:
+                if password == f"Reset@{username}":
+                    db = self.database.dbname
+                    try:
+                        os.remove(db)
+                    except:
+                        pass
+
+                    self.restart_app(False)
+                    #reset
+
+    def about_me(self):
+        self.msgBox.show_information("About","JBADONAI VIDEO DOWNLOADER (JVD)\n\n"
+                                             "Developed by: Jbadonaiventures International.\n"
+                                             "Email: jbadonaiventures@gmail.com\n"
+                                             "Phone: +234 802 222 4284\n\n"
+                                             "Copyright: \xa9 2022")
+
+    def about_user(self):
+        try:
+            user = self.database.get_settings('owner')
+            if str(user).__contains__("-"):
+                username = str(user).split("-")[0].strip()
+                email = str(user).split("-")[1].strip()
+            else:
+                username = email = user
+
+            key = self.database.get_settings('trial_key')
+            key = f"{key[:40]} ... {key[-40:]}"
+            self.msgBox.show_information("About",f"This application is licensed to:\n"
+            f"\t{username}\n"
+            f"\t{email}\n\n"
+            f"License key: [\n"
+            f"{key}\n]\n\n\n"                                             
+            f"jbadonaiventures Copyright: \xa9 2022")
+        except SoftLandingException:
+            pass
+        except:
+            pass
 
     def activate(self):
         if self.activation_in_progress is False:
@@ -257,20 +318,18 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.msgBox.show_information("Unhandled Exception!", f"Unhandled exception below occurred in activate license: {e}")
             pass
 
+    def request_for_new_email(self):
+        self.msgBox.show_information("No Longer Allowed!", "Changing of Email Address is no longer supported!\n\n"
+                                                            "Don't Worry! Application will be automatically activated "
+                                                            "with your Trial key!\n\nJust take note of the email "
+                                                            "address used as this will be required for full activation.")
+
     def initialize(self):
         global restart
         restart = False
         try:
             print("[Debug] Main Window Initialize Start: initialize()")
-
-
-            # all = self.database.get_all_video_data()
-            # for a in all:
-            #     print(a)
-
-
-            # [AUTHENTICATION] check generated system ID
-            # self.authentications.check_system_info()
+            self.labelAbout.setText("jbadonaiventures Copyright: \xa9 2022")
 
             # some of these required database to be ready, so they are initialize here after database initialization
             # --> INITIALIZING ENGINES
@@ -610,7 +669,7 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                     print(e)
         except NotActivatedException as e:
             # QMessageBox.information(self, 'Activation Required!', "Sorry! Activation is Required before you can start downloading.\n\n Just follow the simple steps to get your Free Trial License or Paid License.")
-            self.msgBox.show_information('Activation Required!', "Sorry! Activation is Required before you can start downloading.\n\nJust follow the simple steps to get your Free Trial License or Paid License.")
+            self.msgBox.show_information('Activation Required!', "Sorry! Activation is Required before you can start downloading.\n\nClick 'Activate' button on the toolbar to start.")
             self.textAddNewURL.clear()
             pass
         except Exception as e:
@@ -806,16 +865,18 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
     def slideFrameStatistics(self):
         try:
             height = self.frame_statistics.height()
-            print(height)
+            # print(height)
             if height <= 40:
 
                 newHeight = 101
                 self.buttonShowHideStatistics.setIcon(QIcon(":/white icons/White icon/chevron-down.svg"))
                 self.frame_statistics_details.setVisible(True)
+                self.frame_about.setVisible(True)
             else:
                 newHeight = 40
                 self.buttonShowHideStatistics.setIcon(QIcon(":/white icons/White icon/chevron-up.svg"))
                 self.frame_statistics_details.setVisible(False)
+                self.frame_about.setVisible(False)
 
             try:
                 self.animation = QPropertyAnimation(self.frame_statistics, b"maximumHeight")
@@ -1061,6 +1122,15 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
 
             if event.type() == QtCore.QEvent.MouseButtonDblClick and source is self.labelEmailAddress:
                 self.request_for_new_email()
+
+            if event.type() == QtCore.QEvent.MouseButtonDblClick and source is self.labelAbout:
+                self.about_me()
+
+            if event.type() == QtCore.QEvent.MouseButtonDblClick and source is self.textOwner:
+                self.about_user()
+
+            if event.type() == QtCore.QEvent.MouseButtonDblClick and source is self.labelSettings:
+                self.reset_me()
 
             if event.type() == QtCore.QEvent.Enter and source is self.buttonAddNewDownload:
                 # print('hover')

@@ -928,6 +928,8 @@ class VideoDownloaderStyleSheet():
         self.my_style.container_with_border([self.myself.frame_statistics], padding=3, background=self.color_panel_bg,
                                             ba=False, bt=True, bb=True, b_size=2, b_color=self.primary_border_color)
 
+        self.my_style.container_no_border([self.myself.labelAbout],font_color=self.primary_border_color, font_size=9)
+
         for child in self.myself.frame_statistics_details.children():
                 # styleing only the checkbox in settings panel
 

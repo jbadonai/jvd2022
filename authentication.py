@@ -281,7 +281,7 @@ class CheckMeOnServerThread(QtCore.QThread):
                                       "1. Please make sure your PC has an active internet connection.\n\n" \
                                       "2. If you have registered, Please check your mail for your license key and instruction on how to apply it.\n\n" \
                                       "3. If you have not registered. Please click 'Activate' button to start.\n\n" \
-                                      "If the problem persists, the licensing server might down temporarily. Please " \
+                                      "If the problem persists, the licensing server might be down temporarily. Please " \
                                       "Try again latter or contact jbadonaiventures@yahoo.com to report this error."
             self.any_signal.emit(self.emit_data)
         except:
@@ -717,6 +717,7 @@ class MonitorKeyThread(QtCore.QThread):
         self.generalFunction = GeneralFunctions()
         self.myself = myself
         self.myparent = parent
+        self.counter = 0
 
     def check_license(self):
         try:
@@ -752,12 +753,14 @@ class MonitorKeyThread(QtCore.QThread):
             licExpired = result[0]  # license expired status
             licStatus = result[1]  # remaining days in license
             if licExpired is True:
+                self.counter = 0
                 self.myself.disable_downloading()
                 self.myself.labelActivationStatus.setText("Trial License Expired!")
                 self.myself.textOwner.setText(email)
                 self.myself.frame_license_info.setVisible(True)
                 self.myself.buttonActivate.setVisible(True)
             else:
+                self.counter = 0
                 self.myself.enable_downloading()
                 self.myself.labelActivationStatus.setText(f"Your license will expire in {str(licStatus)}")
                 self.myself.textOwner.setText(email)
@@ -768,9 +771,11 @@ class MonitorKeyThread(QtCore.QThread):
             pass
         except InvalidLicenseException:
             if self.myself.activation_in_progress is False:
+                self.counter = 0
                 self.myself.labelActivationStatus.setText("Activation Required!")
             else:
-                self.myself.labelActivationStatus.setText(self.myparent.message)
+                self.counter += 1
+                self.myself.labelActivationStatus.setText(f"{self.myparent.message} [ {self.generalFunction.format_seconds(self.counter)} ]")
 
             self.myself.textOwner.setText('jbadonaiventures')
             self.myself.frame_license_info.setVisible(True)

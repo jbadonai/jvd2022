@@ -23,7 +23,7 @@ class ApiCalls():
         self.server_search_status = "Started!"
 
     def get_default_server(self):
-        return Config().config('LOCAL_SERVER_ADDRESS')
+        # return Config().config('LOCAL_SERVER_ADDRESS')
 
         default_server = VideoDatabase().get_settings('default_server')
         default_server = JBEncrypter().decrypt(default_server, Config().config('ENCRYPT_PASSWORD'))
