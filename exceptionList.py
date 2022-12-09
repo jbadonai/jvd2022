@@ -65,3 +65,6 @@ class FullyActivatedException(Exception):
 class InvalidLicenseException(Exception):
     pass
 
+class InterruptedException(Exception):
+    pass
+

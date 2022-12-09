@@ -45,6 +45,15 @@ class GeneralFunctions():
         fr = VideoDatabase().get_settings('message_sent_successfully')
         return bool(int(fr))
 
+    def get_server_list_from_db(self):
+        fr = VideoDatabase().get_settings('server_list')
+        print(f"fr:::::::::::::::>{fr}")
+        if fr is not None:
+            dec = JBEncrypter().decrypt(fr, Config().config('ENCRYPT_PASSWORD'))
+            sl = eval(dec)
+            return sl
+        return []
+
     def get_this_machine_id(self):
         try:
             my_system = platform.uname()

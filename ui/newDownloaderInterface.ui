@@ -1366,10 +1366,47 @@
                     <item>
                      <widget class="QCheckBox" name="checkBoxAutoAdd">
                       <property name="toolTip">
-                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically add new download to the download list after obtaining the meta data.&lt;/p&gt;&lt;p&gt;Default options (Download Video and Best Video Quality) will be selected.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Automatically add new download to the download list after obtaining the video data.&lt;/p&gt;&lt;p&gt;Default options (&lt;span style=&quot; font-weight:600;&quot;&gt;Download Video&lt;/span&gt; and &lt;span style=&quot; font-weight:600;&quot;&gt;Best Video Quality&lt;/span&gt;) will be selected.&lt;/p&gt;&lt;p&gt;Uncheck if you want to &lt;span style=&quot; font-weight:600;&quot;&gt;download Video as Audio&lt;/span&gt; or You want to &lt;span style=&quot; font-weight:600;&quot;&gt;download a certain video Quality&lt;/span&gt;.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                       </property>
                       <property name="text">
                        <string>Auto Add New Downloads</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_check_internet_speed">
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QVBoxLayout" name="verticalLayout_20">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <property name="leftMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="topMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="rightMargin">
+                     <number>0</number>
+                    </property>
+                    <property name="bottomMargin">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QCheckBox" name="checkBoxCheckInternetSpeed">
+                      <property name="toolTip">
+                       <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Check to show your Internet Speed&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                      </property>
+                      <property name="text">
+                       <string>Check and Show  Internet Speed</string>
                       </property>
                      </widget>
                     </item>

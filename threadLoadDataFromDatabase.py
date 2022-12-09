@@ -7,7 +7,7 @@ import  random
 from generalFunctions import GeneralFunctions
 from videoDatabase import VideoDatabase
 from exceptionList import *
-
+busy = False
 
 class LoadDataFromDB():
     def __init__(self, myself):
@@ -84,10 +84,15 @@ class LoadDataFromDB():
         self.counter = 1
 
         def loading_connector(data):
+            global busy
+            print(f":>> DATA RECEIVED: {data}")
             if data['completed'] is False:
                 download_entries = data['entries']
                 print(f"[Debug] \tAdding content({len(download_entries)}) to Parent Item")
+
                 self.my_self.add_parent_item("", download_entries)
+                busy = False
+                print(f"self.busy now: {busy}")
             else:
                 # self.my_self.parentScrollAreaWidgetContents.setVisible(True)
                 # self.my_self.data_loading_completed = True
@@ -164,6 +169,7 @@ class LoadDataFromDatabaseThread(QtCore.QThread):
         pass
 
     def run(self):
+        global busy
         try:
             if self.isInterruptionRequested() is True:
                 raise StoppedByUserException
@@ -183,17 +189,25 @@ class LoadDataFromDatabaseThread(QtCore.QThread):
                 if d[1] is True:    # if playlist
                     # get all data in the database with the same playlist title
                     item = self.database.get_all_entries_by_playlist_title(d[0])
-                    item = self.convert_list_to_dictionary(item)
+                    item_converted = self.convert_list_to_dictionary(item)
                 else:   # non playlist
                     # get all data in the database with title
                     item = self.database.get_all_entries_by_title(d[0])
-                    item = self.convert_list_to_dictionary(item)
+                    item_converted = self.convert_list_to_dictionary(item)
 
-                self.data_to_emit['entries'] = item
+                self.data_to_emit['entries'] = item_converted
                 self.any_signal.emit(self.data_to_emit)
-                print(f"[Debug] \t{index + 1} -- Total content: {len(item)}")
-                time.sleep(0.3)
+                busy = True
 
+                # trying to wait for previous data to be received and processed b4 proceeding to next one
+                while True:
+                    if busy is False:
+                        break
+                    time.sleep(0.1)
+
+                print(f"[Debug] \t{index + 1} -- Total content: {len(item)}")
+
+            # time.sleep(0.5)
             self.data_to_emit['completed'] = True
             self.any_signal.emit(self.data_to_emit)
             time.sleep(0.3)

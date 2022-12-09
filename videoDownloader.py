@@ -11,7 +11,7 @@ from ui import newDownloaderInterface_
 # import newDownloaderInterface
 from generalFunctions import GeneralFunctions
 from threadGetEntry import GetEntryThread
-from threadGetInternetDownloadSpeed import GetInternetConnectionSpeed, DownloadSpeed, InternetConnection
+from threadGetInternetDownloadSpeed import GetInternetConnectionSpeed, DownloadSpeedThread, InternetConnection
 from videoDatabase import VideoDatabase
 from threadLoadDataFromDatabase import LoadDataFromDB
 from threadStatistics import Statistics
@@ -28,7 +28,7 @@ from exceptionList import *
 import requests
 from environment import Config
 from dialogs import MessageBox
-
+import apiCalls
 
 
 import yt_dlp as youtube_dl     #yt-dlp-2022.1.21, yt-dlp 2022.3.8.2
@@ -64,8 +64,22 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.setupUi(self)
             self.setWindowFlag(Qt.FramelessWindowHint)
             self.buttonTheme.setIcon(QIcon(":/white icons/White icon/sun.svg"))
-
+            self.activation_in_progress = False
             self.threadController = {}
+
+            self.database = VideoDatabase()
+            # --> start initializing the database
+            print("[Debug] \tSetting up database")
+            self.database.initialize_database()
+
+            fbConfig = {'un': 'jbadonaiventures@gmail.com', 'pw': 'Afolayemi1'}
+            print(fbConfig)
+            fbConfigEnc = JBEncrypter().encrypt(str(fbConfig))
+            print("------------------------------------------------")
+            print(fbConfigEnc)
+            print("------------------------------------------------")
+            print(eval(JBEncrypter().decrypt(fbConfigEnc)))
+            print("------------------------------------------------")
 
             self.spinBoxNumberOfRetries.setStyle(Proxy())
             self.spinBoxConcurrentDownload.setStyle(Proxy())
@@ -75,11 +89,12 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.my_stylesheet = VideoDownloaderStyleSheet(self, self.my_color_scheme.dark_theme())
             self.my_stylesheet.apply_stylesheet()  # apply stylesheet to self
             GeneralFunctions().centralize_main_window(self)
-
+            print("here")
             # [AUTHENTICATION]
             self.authentications = Authentications(self)
-            # self.authentications.check_me_on_server()
             self.allow_downloading = False
+            print("here")
+            # print(JBEncrypter().encrypt("http://44.208.20.214/", Config().config('ENCRYPT_PASSWORD')))
 
             # custom message box
             self.msgBox = MessageBox()
@@ -100,7 +115,7 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.ip_address = None
             self.default_download_location = os.path.join(os.getcwd(), 'Downloads')
 
-            self.database = VideoDatabase()
+
 
             # these are initialized in the initialize after database initialization as been completed
             self.internet_speed = None
@@ -177,14 +192,15 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.buttonBrowseDownloadLocation.clicked.connect(self.change_settings)
             self.buttonSettings.clicked.connect(self.slideSettingsPanel)
             self.checkBoxAutoAdd.clicked.connect(self.change_settings)
+            self.checkBoxCheckInternetSpeed.clicked.connect(self.change_settings)
             self.buttonExpandAll.clicked.connect(self.expand_all)
             self.buttonCollapseAll.clicked.connect(self.collapse_all)
             # self.textLicense.textChanged.connect(self.proof_read_license_code)
 
             # application ACTIVATION
             # ----------------------------------------------------------------------------
-            # self.buttonActivate.clicked.connect(self.activate)
-            # self.buttonActivateLicense.clicked.connect(self.activate_license)
+            self.buttonActivate.clicked.connect(self.activate)
+            self.buttonActivateLicense.clicked.connect(self.activate_license)
             # ----------------------------------------------------------------------------
 
             self.children_window_handle_list = []
@@ -202,255 +218,44 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             #Extra-------------------------------------
             self.license_point_of_failure = None
             self.activated = False # keep track of app activation status
+            self.checking_available_server_in_progress = False
 
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > __init__(): {e}")
 
+    def activate(self):
+        if self.activation_in_progress is False:
+            self.start_up_check()
+        else:
+            self.msgBox.show_information("Wait!", "Activation process is in progress! Please Wait...")
 
+    def activate_license(self):
+        try:
+            if self.textLicense.toPlainText() == "" or self.activation_in_progress is True:
+                raise SoftLandingException
 
-    # PAUSED -------------------------------------------------
-    # def proof_read_license_code(self):
-    #     try:
-    #         text = self.textLicense.toPlainText()
-    #         if text[:2] == "aa":
-    #             self.buttonActivateLicense.setText("Reset Email Address.")
-    #         else:
-    #             self.buttonActivateLicense.setText("Activate License")
-    #         pass
-    #     except Exception as e:
-    #         print(f"An error occurred in [videoDownloader.py] > proof read license code: {e}")
-    #         pass
-    #
-    # def activate_paused(self):
-    #     try:
-    #         trialExpired = self.generalFunction.is_trial_expired()
-    #         if trialExpired is False:
-    #             self.authentications.trial_license_request_with_api()
-    #         else:
-    #             self.authentications.full_license_request()
-    #         pass
-    #     except Exception as e:
-    #         print(f"An Error occurred in [videoDownloader.py] > 'activate': {e}")
-    #         QMessageBox.critical(self, "Error", e)
-    #
-    # def activate_license_paused(self):
-    #
-    #     def activate_license_now():
-    #         try:
-    #             # get license supplied by user
-    #             lic = self.textLicense.toPlainText().strip()
-    #             owner = self.labelEmailAddress.text()
-    #
-    #             # check for empty owner. this happens if proper process is not followed or try to copy license elsewhere
-    #             if owner == "":
-    #                 tempOwner = self.database.get_settings('temp_owner')
-    #
-    #                 if tempOwner == "":
-    #                     QMessageBox.critical(self, "Unknown Owner!",
-    #                                          "Your valid email is required for validation! Please click 'Activate' button to get your own key!")
-    #                     self.textLicense.clear()
-    #                     raise Exception
-    #                 else:
-    #                     self.labelEmailAddress.setText(tempOwner)
-    #                     owner = tempOwner
-    #
-    #             print("empty owner's check: OK")
-    #
-    #
-    #             # get the current system id
-    #             actualSystemID = self.generalFunction.get_this_machine_id()["id"]
-    #
-    #             # decrypte license and extract the content (email, key and machine id)
-    #             licDecrypted = JBEncrypter().decrypt(lic, Config().config("ENCRYPT_PASSWORD"))
-    #             print(f"dec:  {licDecrypted}")
-    #
-    #             if licDecrypted is None:
-    #                 if self.buttonActivateLicense.text().__contains__("Reset"):
-    #                     QMessageBox.critical(self, "Invalid Code", "Invalid Reset Code provided!")
-    #                 else:
-    #                     QMessageBox.critical(self, "Invalid License", "Invalid License provided!")
-    #
-    #                 self.textLicense.clear()
-    #                 raise Exception
-    #
-    #             registeredEmail, userLic, systemID, fl = licDecrypted.split("'")
-    #
-    #             if fl == "False":
-    #                 fullLicense = False
-    #             else:
-    #                 fullLicense = True
-    #
-    #             # extract license status and remaining days
-    #             result = LicenseGenerator().is_license_expired(userLic)
-    #             licExpired = result[0]  # license expired status
-    #             licStatus = result[1]  # remaining days in license
-    #
-    #             # check for system id tamper
-    #             if systemID != actualSystemID:
-    #                 QMessageBox.critical(self, "License Issue!",
-    #                                      "License provided was not issued by this machine! or has been tampered with")
-    #                 self.textLicense.clear()
-    #                 raise Exception
-    #             print("system ID check: ok")
-    #
-    #             # check for owner mismatch
-    #             if owner != registeredEmail and owner != "":
-    #                 QMessageBox.critical(self, "License Issue!",
-    #                                      f"License provided was not licensed to '{owner}'. \n\nA "
-    #                                      f"mail has been sent to '{owner}', based on your previous license request. Please check your mail again for your license.")
-    #                 self.textLicense.clear()
-    #                 raise Exception
-    #
-    #             print("owner's check: OK")
-    #
-    #             # check for invalid license
-    #             if str(licStatus).__contains__("Invalid"):
-    #                 QMessageBox.critical(self, "Invalid License!", "License supplied is Invalid!")
-    #                 self.textLicense.clear()
-    #                 raise Exception
-    #
-    #             print("valid license check: OK")
-    #
-    #             # check if license has expired
-    #             if licExpired is True:
-    #                 QMessageBox.information(self, "License Expired!",
-    #                                         "The Trial License supplied has Expired! please request for paid License!")
-    #                 self.textLicense.clear()
-    #                 raise Exception
-    #
-    #             print("License expired check: OK")
-    #
-    #             trialExpired = self.generalFunction.is_trial_expired()
-    #
-    #             if trialExpired is True and fullLicense is False and licExpired is False:
-    #                 QMessageBox.critical(self, "Full license Required!", "Please get a Paid License. You cannot "
-    #                                                                      "use another trial license once your initial "
-    #                                                                      "trial license has expired.")
-    #                 self.textLicense.clear()
-    #                 raise Exception
-    #             else:
-    #                 pass
-    #
-    #             # save license key to database
-    #             self.database.update_setting('trial_key', lic)
-    #
-    #             # save owner
-    #             self.database.update_setting('owner', registeredEmail)
-    #
-    #             # set trial expired status
-    #             self.database.update_setting('trial_expired', False)
-    #
-    #             # set trial Activated status
-    #             self.database.update_setting('trial_activated', True)
-    #             self.database.update_setting('fully_activated', False)
-    #
-    #             self.frame_license_info.setVisible(False)
-    #             self.textAddNewURL.setEnabled(True)
-    #
-    #             QMessageBox.information(self, "Trial Activation Successful!", "Trial Activation was successful!")
-    #         except Exception as e:
-    #             print(f"An error occurred in [videoDownloader.py] > activate_license > activate_license_now(): {e}")
-    #             pass
-    #
-    #     try:
-    #         if self.textLicense.toPlainText() == "":
-    #             QMessageBox.information(self, "License Required!", "License cannot be empty, Please paste your license code in the space provided.")
-    #             self.textLicense.setFocus()
-    #             raise StoppedByUserException
-    #
-    #         trialExpired = self.generalFunction.is_trial_expired()
-    #         if trialExpired is False:
-    #             # check if a request code was provided
-    #             ans = self.check_reset_code(self.textLicense.toPlainText().strip())
-    #             if ans is True:
-    #                 print("Restarting...")
-    #                 QMessageBox.information(self,"Reset Successful!", "Reset Successful. Application will now Restart.")
-    #                 raise RestartException
-    #             else:
-    #                 # CHECKING THE LICENSE
-    #                 activate_license_now()
-    #         else:
-    #             # TRIAL EXPIRED
-    #             activate_license_now()
-    #
-    #     except StoppedByUserException:
-    #         pass
-    #     except RestartException:
-    #         self.restart_app(False)
-    #     except Exception as e:
-    #         print(f"An error occurred in [videoDownloader.py] > activate_license()")
-    #         pass
-    #
-    # def display_license_issue_messages(self):
-    #     try:
-    #         trialActivated = self.generalFunction.is_trial_activated()
-    #         trialExpired = self.generalFunction.is_trial_expired()
-    #         fullyActivated = self.generalFunction.is_fully_activated()
-    #         trialLicKey = self.database.get_settings('trial_key')
-    #         fullLic = self.database.get_settings('license_key')
-    #
-    #         if trialLicKey == "" or fullLic == "":
-    #             QMessageBox.information(self, "No License!",
-    #                                     "Sorry! Download Not allowed because you do not have an active license! Please "
-    #                                     "click Activate button to request for your Free Trial License or activate License "
-    #                                     "in the settings panel if you have already requested for a License")
-    #             self.textAddNewURL.clear()
-    #
-    #         elif trialExpired is False and trialActivated is False and fullyActivated is False:
-    #             QMessageBox.information(self, "License Expired!",
-    #                                     "Sorry! The license supplied is valid but expired! Please get a valid license")
-    #         elif trialExpired is True:
-    #             QMessageBox.information(self, "License Expired!",
-    #                                     "Sorry! Your Trial License has expired! Please request for fullLincense")
-    #         pass
-    #     except Exception as e:
-    #         print(f"An error occurred in [videoDownloader.py] > display_license_issue_messages(): {e}")
-    #
-    # def check_reset_code(self, license):
-    #     try:
-    #         old_email = self.labelEmailAddress.text()
-    #         result = self.authentications.is_reset_code_valid(old_email, license)
-    #         print(f"Result: {result}")
-    #         if result is True:
-    #             self.database.update_setting('temp_owner', "")
-    #             self.database.update_setting('ownder', "jbadonaiventures")
-    #             self.database.update_setting('message_sent_successfully', False)
-    #             return True
-    #         else:
-    #             return False
-    #     except:
-    #         return False
-    #
-    # def request_for_new_email(self):
-    #     try:
-    #         expired = GeneralFunctions().is_trial_expired()
-    #         if self.labelEmailAddress.text() != "Email Address here..." and expired is False:
-    #             ans = QInputDialog.getText(self, "Change Request",
-    #                                        "To request a change in Email Address from the Admin. \n"
-    #                                        "Please Enter a new VALID Email Address below. \n\n"
-    #                                        "A reset code with instruction will be sent to the new Email \n"
-    #                                        "Address within 24hrs of receiving this request.\n\n"
-    #                                        "Please Note:\nOnly invalid Email Address "
-    #                                        "will be treated after verification.")
-    #             new_email = ans[0]
-    #             response = ans[1]
-    #             old_email = self.labelEmailAddress.text()
-    #
-    #             if response is True:
-    #                 self.authentications.email_change_request(old_email, new_email)
-    #
-    #                 pass
-    #         else:
-    #             if self.labelEmailAddress.text() == "Email Address here...":
-    #                 QMessageBox.information(self, "Activate!",
-    #                                         "No Email Address has been registered. Please click Activate button to request for a License!")
-    #             if expired is True:
-    #                 QMessageBox.information(self, "Activate!",
-    #                                         "You cannot reset Email Address when your license has expires. Please Request for Paid License!")
-    #     except Exception as e:
-    #         print(f"An error occurred in [videoDownloader.py] > request_for_new_email(): {e}")
+            self.activation_in_progress = True
+            user_license = self.textLicense.toPlainText().strip()
 
-    # PAUSED --------------------------------------------------
+            user_license_dec = JBEncrypter().decrypt(user_license, Config().config('ENCRYPT_PASSWORD'))
+
+            if user_license_dec is None:
+                raise InvalidLicenseException
+
+            print('valid license. checking....')
+            self.authentications.check_me_on_server_with_license(user_license)
+
+        except SoftLandingException:
+            if self.activation_in_progress is True:
+                self.msgBox.show_information("Wait!", "License Activation process is in progress! Please Wait...")
+            pass
+        except InvalidLicenseException:
+            self.activation_in_progress = False
+            self.msgBox.show_information("Invalid license!", "License provided is invalid. \n\nPlease get a paid license if your trial license has expired, otherwise click 'Activate' button on the toolbar to get your free tiral license.")
+        except Exception as e:
+            self.activation_in_progress = False
+            self.msgBox.show_information("Unhandled Exception!", f"Unhandled exception below occurred in activate license: {e}")
+            pass
 
     def initialize(self):
         global restart
@@ -458,9 +263,11 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
         try:
             print("[Debug] Main Window Initialize Start: initialize()")
 
-            # --> start initializing the database
-            print("[Debug] \tSetting up database")
-            self.database.initialize_database()
+
+            # all = self.database.get_all_video_data()
+            # for a in all:
+            #     print(a)
+
 
             # [AUTHENTICATION] check generated system ID
             # self.authentications.check_system_info()
@@ -495,7 +302,13 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                 self.data_loading_completed = True
 
             # --> START ENGINES (running continuously in a thread)
-            self.start_internet_speed_check()   # [1]start internet speed checker thread
+            start_speed = bool(int(self.database.get_settings('check_internet_speed')))
+            if start_speed is True:
+                self.frame_internet_speed.setVisible(True)
+                self.start_internet_speed_check()   # [1]start internet speed checker thread
+            else:
+                self.frame_internet_speed.setVisible(False)
+
             self.start_internet_connection_check()  # start checking for internet availability
             self.statistics_loader.start_getting_statistics()   # start satistics checker
             self.download_controller.start_download_controller()    # controlls download
@@ -518,17 +331,65 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.buttonAddNewDownload.setText("\tAdd to download List") # change text on the add download button
             self.groupBoxPlaylistOption.setVisible(False)   # hide playlist groupbox
             self.textAddNewURL.setFocus() # set focus on the url text box
+            self.buttonTheme.setVisible(False)
+
+            # SERVERS CHECK
+            sl = self.generalFunction.get_server_list_from_db()
+            print(f"Server list before update: {sl}")
+            self.find_available_server()
 
             # self.buttonActivate.setVisible(False)
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > initialize(): {e}")
 
+    def find_available_server(self):
+        self.checking_available_server_in_progress = True
+        def find_server_connector(data):
+            try:
+                # print(data)
+                # print(f"DATA: {data}")
+                if 'server' in data:
+                    print(f"AVAILABLE SERVERS DETECTED: {data['server']}")
+                    # GET LIST OF AVAILABLE SERVERS
+                    available_servers = data['server']
+                    if len(available_servers) <= 0:
+                        raise SoftLandingException
+
+                    # ENCRYPT IT
+                    encrypted_available_server = JBEncrypter().encrypt(str(available_servers),
+                                                                       Config().config('ENCRYPT_PASSWORD'))
+
+                    # SAVE IT TO DATABASE
+                    self.database.update_setting('server_list', encrypted_available_server)
+                    print(f"Server list updated")
+
+                    self.checking_available_server_in_progress = False
+
+                if 'message' in data:
+                    print(data['message'])
+            except SoftLandingException:
+                print(f"Server list update completed! No server list detected")
+                pass
+            except:
+                pass
+
+        try:
+            self.threadController['find_server'] = apiCalls.FindServerListThread()
+            self.threadController['find_server'].start()
+            self.threadController['find_server'].find_server_signal.connect(find_server_connector)
+        except Exception as e:
+            print(f"eeeeeeeeeeeeee: {e}")
+            pass
+
     def start_up_check(self):
         try:
+            print(f"[DEBUB][STARTUP] - startup check started")
             #   1. check and skip this check if app is fully activated
             full_activation = self.generalFunction.is_fully_activated()
             if full_activation is True:
                 raise FullyActivatedException
+
+            print(f"[DEBUB][STARTUP] - No full license detected")
 
             #   2. check local db if there is a key
             is_lic_key = self.generalFunction.is_there_trial_key()
@@ -536,15 +397,21 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             if is_lic_key is False:     # i.e. no license key on local db:
                 # check if pc has been registered before and download settings for the pc
                 # if not register new user
+                print(f"[DEBUB][STARTUP] - No license detected in local db. checking me on server")
+                self.activation_in_progress = True
                 self.authentications.check_me_on_server()
 
             else:   # i.e. a license key is on the local db:
                 # Extract info from the key
                 #   a. get the license from db
                 lic = self.generalFunction.get_trial_key()
+                print()
+                print(lic)
+                print()
 
                 #   b. decrypt the license
                 licDecrypted = JBEncrypter().decrypt(lic, Config().config("ENCRYPT_PASSWORD"))
+                print(licDecrypted)
 
                 # check if license is not valid
                 if licDecrypted is None:
@@ -892,15 +759,16 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
 
     def change_theme(self):
         try:
-            from apiCalls import ApiCalls
-
-            ApiCalls().send_user_settings()
+            # from apiCalls import ApiCalls
+            #
+            # ApiCalls().send_user_settings()
             # if str(self.styleSheet())[2] == 'l':
             #     # self.setStyleSheet(Stylesheet().darkTheme)
             #     self.buttonTheme.setIcon(QIcon(":/white icons/White icon/sun.svg"))
             # else:
             #     # self.setStyleSheet(Stylesheet().lightTheme)
             #     self.buttonTheme.setIcon(QIcon(":/white icons/White icon/moon.svg"))
+            pass
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > change_theme(): {e}")
 
@@ -1023,7 +891,7 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                 print(f"An error occurred in [videoDownloader.py] > start_internet_speed_check() > loading() : {e}")
 
         try:
-            self.threadController['internet speed'] = DownloadSpeed()
+            self.threadController['internet speed'] = DownloadSpeedThread()
             self.threadController['internet speed'].start()
             self.threadController['internet speed'].any_signal.connect(loading)
         except Exception as e:
@@ -1070,6 +938,7 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
     def stop_internet_speed_check(self):
         try:
             self.threadController['internet speed'].stop()
+            self.download_speed = 0
             pass
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > stop_internet_speed_check(): {e}")
@@ -1106,11 +975,13 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             max_downloads = self.database.get_settings('max_download')
             max_retries = self.database.get_settings('max_retries')
             auto_add = self.database.get_settings('auto_add_new_download')
+            check_internet_speed = self.database.get_settings('check_internet_speed')
 
             self.textDownloadLocation.setText(downloadLocation)
             self.spinBoxConcurrentDownload.setValue(int(max_downloads))
             self.spinBoxNumberOfRetries.setValue(int(max_retries))
             self.checkBoxAutoAdd.setChecked(int(auto_add))
+            self.checkBoxCheckInternetSpeed.setChecked(int(check_internet_speed))
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > load_settings(): {e}")
 
@@ -1136,6 +1007,20 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                 else:
                     print("False")
                     self.database.update_setting('auto_add_new_download', False)
+
+            if sender.objectName() == self.checkBoxCheckInternetSpeed.objectName():
+                if self.checkBoxCheckInternetSpeed.isChecked() is True:
+                    # self.frame_internet_speed.setVisible(True)
+                    self.start_internet_speed_check()
+                    self.database.update_setting("check_internet_speed", True)
+                else:
+                    # self.frame_internet_speed.setVisible(False)
+                    self.stop_internet_speed_check()
+                    self.database.update_setting("check_internet_speed", False)
+
+
+
+
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > change-settings(): {e}")
 
@@ -1218,7 +1103,11 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             # display what is going on in add new section
             self.labelAddNewStatus.setText(f"{self.main_message}")
 
-            self.display_download_speed_in_timer()
+            if self.checkBoxCheckInternetSpeed.isChecked() is True:
+                self.frame_internet_speed.setVisible(True)
+                self.display_download_speed_in_timer()
+            else:
+                self.frame_internet_speed.setVisible(False)
 
             self.control_format_selection_in_timer()
 

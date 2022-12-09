@@ -32,7 +32,10 @@ class Config():
 
         if key == "SERVER_ADDRESS": return 'https://downloader-server.herokuapp.com/'
         if key == "LOCAL_SERVER_ADDRESS": return 'http://127.0.0.1:8000/'
-        if key == "AWS_SERVER_ADDRESS": return 'http://3.86.81.146/'
+        if key == "AWS_SERVER_ADDRESS": return 'http://3.84.236.99/'
+        if key == "DEFAULT_SERVER_ADDRESS": return 'http://6.84.236.99/'
+        if key == "SERVER_CHECK_USERNAME": return 'jbadonaiventures@gmail.com'
+        if key == "SERVER_CHECK_PASSWORD": return 'Afolayemi1'
 
         if key == "ENCRYPT_PASSWORD": return "jbadonaiventures"
         if key == "ACCESS_PASSWORD": return "afolayemi"

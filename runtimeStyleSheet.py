@@ -541,6 +541,7 @@ class ColorScheme():
         color_bright_yellow = "yellow"
         color_bright_white = "white"
         color_bright_blue = "blue"
+        color_pale_blue = "rgba(16,88,145,255)"
         color_bright_red = "red"
         color_blue_highlight = "blue"
 
@@ -562,6 +563,7 @@ class ColorScheme():
         self._theme['color_bright_yellow'] = color_bright_yellow
         self._theme['color_bright_white'] = color_bright_white
         self._theme['color_bright_blue'] = color_bright_blue
+        self._theme['color_pale_blue'] = color_pale_blue
         self._theme['color_bright_red'] = color_bright_red
 
         self._theme['color_title_bar_bg'] = color_title_bar_bg
@@ -1087,6 +1089,7 @@ class ChildItemStyleSheet():
         self.color_bright_yellow = self.colorScheme['color_bright_yellow']
         self.color_bright_white = self.colorScheme['color_bright_white']
         self.color_bright_blue = self.colorScheme['color_bright_blue']
+        self.color_pale_blue = self.colorScheme['color_pale_blue']
         self.color_bright_red = self.colorScheme['color_bright_red']
 
         self.color_title_bar_bg = self.colorScheme['color_title_bar_bg']
@@ -1145,7 +1148,7 @@ class ChildItemStyleSheet():
         self.my_style.container_no_border([self.myself.frame_child],margin="0,0,3,0", padding="3",
                                           background=self.color_button_pressed)
 
-        self.my_style.append_with_hover([self.myself.frame_child], background=self.color_bright_blue)
+        self.my_style.append_with_hover([self.myself.frame_child], background=self.color_pale_blue)
 
         self.my_style.container_no_border([self.myself.frame_title], padding=1, margin="0,0,0,40")
 

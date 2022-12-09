@@ -5,6 +5,7 @@ import speedtest
 from PyQt5 import QtCore
 from generalFunctions import GeneralFunctions
 import urllib.request
+from exceptionList import *
 
 
 class GetInternetConnectionSpeed():
@@ -53,11 +54,11 @@ class GetInternetConnectionSpeed():
         pass
 
 
-class DownloadSpeed(QtCore.QThread):
+class DownloadSpeedThread(QtCore.QThread):
     any_signal = QtCore.pyqtSignal(dict)
 
     def __init__(self):
-        super(DownloadSpeed, self).__init__()
+        super(DownloadSpeedThread, self).__init__()
         try:
             # print(f"data:  {data}")
             self.is_running = False
@@ -83,13 +84,13 @@ class DownloadSpeed(QtCore.QThread):
 
     def _get_download_speed(self):
         try:
-            self.down_check = False
+            # self.down_check = False
             download_speed = self.speed_test.download()
             self.download_speed = f"{download_speed/1024/1024:.2f} Mbit/s"
             self.data['download speed'] = self.download_speed
             self.any_signal.emit(self.data)
-            time.sleep(30)
-            self.down_check = True
+            # time.sleep(30)
+            # self.down_check = True
         except Exception as e:
             print(f"An Error Occurred in _get download speed: {e}")
             self.download_speed = 0
@@ -110,6 +111,7 @@ class DownloadSpeed(QtCore.QThread):
     def run(self):
         try:
             self.is_running = True
+            counter = 0
 
             while True:
                 if self.isInterruptionRequested() is True:
@@ -129,18 +131,31 @@ class DownloadSpeed(QtCore.QThread):
             # print(f"Best server: {best}")
             while True:
                 if self.isInterruptionRequested() is True:
-                    break
+                    raise InterruptedException
 
-                if self.down_check is True:
-                    GeneralFunctions().run_function(self._get_download_speed)
+                # if self.down_check is True:
+                # GeneralFunctions().run_function(self._get_download_speed)
+                self._get_download_speed()
 
+                # wait 30seconds before checking to avoid overloading speedtest server
+                while True:
+                    counter += 1
+                    if self.isInterruptionRequested() is True:
+                        raise InterruptedException
+
+                    if counter >= 30:
+                        counter = 0
+                        break
+                    time.sleep(1)
 
                 if self.is_running is False:
                     break
                 time.sleep(1)
 
             pass
-
+        except InterruptedException:
+            print(f"[[  INTERNET SPEED INTERRUPTED ]]")
+            pass
         except Exception as e:
             print(f"An Error occurred in getInternetDownloadSpeed > 'run' : {e}")
 

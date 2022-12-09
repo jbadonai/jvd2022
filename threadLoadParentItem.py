@@ -33,6 +33,9 @@ class LoadParentItems():
 
         try:
             tempName = random.randint(11111,99999)
+            # print(f"::::::::::::::::> before pushong to parent")
+            # for e in entries:
+            #     print(e)
             self.threadController[f"parent items loader-{tempName}"] = LoadParentItemsThread(entries)
             self.threadController[f"parent items loader-{tempName}"].start()
             self.threadController[f"parent items loader-{tempName}"].any_signal.connect(parent_items_loader_connector)

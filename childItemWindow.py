@@ -283,7 +283,10 @@ class ChildItemWindow(QMainWindow, childItemWindow_.Ui_MainWindow):
             print(f"An Error Occurred in [childItemWindow.py] >  delete_index(): \n>>{e}")
 
     def select_object(self, myobject: object):
-        myobject.setStyleSheet("border: 1px solid yellow; padding:5px; border-radius:15px; background-color: blue;")
+        if myobject.objectName() == self.buttonWarning.objectName():
+            myobject.setStyleSheet("border: 1px solid yellow; padding:5px; border-radius:15px; background-color: red;")
+        else:
+            myobject.setStyleSheet("border: 1px solid yellow; padding:5px; border-radius:15px; background-color: gray;")
 
     def deselect_object(self, myobject:object):
         myobject.setStyleSheet("border: 1px solid gray;padding:5px;background: transparent;margin: 5px 15px; ")
@@ -296,15 +299,23 @@ class ChildItemWindow(QMainWindow, childItemWindow_.Ui_MainWindow):
                                     "C://Program Files (x86)//Google//Chrome//Application//chrome.exe"))
             webbrowser.get('chrome').open(url)
         except Exception as e:
+            self.msgBox.show_information("Aborted!", "Operation Aborted! Chrome browser is required for this operation.")
             print(f"An Error Occurred in [childItemWindow.py] >  open_url_in_ browser(): {e}")
 
     def display_error(self):
         try:
             if self.error_message != "":
-                if self.error_message.lower().__contains__('urlopen error'):
+                if self.error_message.lower().__contains__('urlopen error') or \
+                        self.error_message.lower().__contains__('timed out'):
+
                     displayMesage = "Download Stopped due to Internet connection issue. \n\nPlease Check your Internet connection and try again by righ clicking this download and select 'Start'!"
                     # QMessageBox.information(self, "Error Message", displayMesage)
                     self.msgBox.show_information("Error Message", displayMesage)
+                else:
+                    self.msgBox.show_information("Error Message", f"Download Stopped due to an unhandled Error  below: \n\n"
+                    f" '{self.error_message}' \n\n"
+                    f"Please make sure your internet connection is ok, Right click on this video and click 'Start' to try again.")
+
         except Exception as e:
             print(f"An Error Occurred in [childItemWindow.py] >  display_error(): {e}")
 

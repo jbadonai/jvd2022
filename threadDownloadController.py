@@ -117,6 +117,8 @@ class DownloadControllerThread(QtCore.QThread):
                 download_in_progress_total = int(VideoDatabase().get_total_by_status("Downloading"))
                 total_video = int(VideoDatabase().get_total_number())
 
+                # print(f"max_download: {max_download}<> in progress: {download_in_progress_total}<> total: {total_video}")
+
                 if total_video > 0:
                     if download_in_progress_total < max_download:
                         # print(f">>>: staring next download activated.....")

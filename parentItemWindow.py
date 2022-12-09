@@ -19,6 +19,7 @@ from runtimeStyleSheet import ParentItemStyleSheet, ColorScheme
 from runtimeStyleSheet import  MenuItemStyleSheet
 from menuItemsList import ParentMenuItemsList
 from dialogs import MessageBox
+from exceptionList import *
 
 class ParentItemWindow(QMainWindow, parentItemWindow_.Ui_MainWindow):
 
@@ -42,6 +43,7 @@ class ParentItemWindow(QMainWindow, parentItemWindow_.Ui_MainWindow):
         self.database = VideoDatabase()
         self.threadController = self.parent.threadController
         print(f"[Debug] \tInitializing children loader with data({len(self.data)}) ")
+        # print(self.data)
         self.children_loader = LoadChildrenItems(parent= self, grandparent=self.parent, data=self.data)
 
         # configure a layout
@@ -359,6 +361,9 @@ class ParentItemWindow(QMainWindow, parentItemWindow_.Ui_MainWindow):
 
     def contextMenuEvent(self, event):
         try:
+            if self.isParentPlaylist is False:
+                raise SoftLandingException
+
             style = MenuItemStyleSheet()
             menu = QMenu(self)  # create an instance of the menu
 
@@ -383,7 +388,8 @@ class ParentItemWindow(QMainWindow, parentItemWindow_.Ui_MainWindow):
                     #   get the function name to be executed and run / evaluate it.
                     eval(f"self.menu_item_list.{menu_list[m]['function_name']}")
                     break
-
+        except SoftLandingException:
+            pass
         except Exception as e:
             print(f"An Error Occurred in [childItemWindow.py] >   contextMenuEvent(): \n>>{e}")
 

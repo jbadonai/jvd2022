@@ -514,9 +514,21 @@ class VideoDatabase():
             if self.is_setting_key_in_database("max_retries") is False:
                 self.setup_create_settings("max_retries", 5)
 
+            if self.is_setting_key_in_database("server_list") is False:
+                self.setup_create_settings("server_list", None)
+
+            if self.is_setting_key_in_database("default_server") is False:
+                self.setup_create_settings("default_server", b'gAAAAABjkCQdmCG_gABWrG0aVoi9QRJNn9sTL227wdAuOAFu07O437ViA9gzQ8XwaUxx-8r9U2mYNitih9SOriE1BqzWf4_NxePXod31_D-wT7njC07tVqE=')
+
+                # WORNG SERVER FOR TESTING
+                # self.setup_create_settings("default_server", b'gAAAAABjkD-tJpew_5OC_DsY-YYjXgTrK95P8_IvhxaFEU6SIDVvEXUk2Bf9tcDtOb1b4uEbXwmCI3QcjiqscUa1XDTG3PBmiEaTgsFSyeJX-gwqePsPsCo=')
+
             # Theme
             if self.is_setting_key_in_database("theme") is False:
                 self.setup_create_settings("theme", "dark")
+
+            if self.is_setting_key_in_database("check_internet_speed") is False:
+                self.setup_create_settings("check_internet_speed", False)
 
             # Auto start new download
             if self.is_setting_key_in_database("auto_start_new_download") is False:
