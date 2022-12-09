@@ -2,19 +2,16 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/authentication.py" line="683" mnemonic="4" />
-    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="386" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="382" mnemonic="9" />
     <bookmark url="file://$PROJECT_DIR$/authentication.py" line="628" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="245" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="75" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bb09374-bb25-4b9b-b3cc-8391495d3006" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/apiCalls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apiCalls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/environment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libjcfvd.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runtimeStyleSheet.py" beforeDir="false" afterPath="$PROJECT_DIR$/runtimeStyleSheet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/newDownloaderInterface.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui/newDownloaderInterface.ui" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ui/newDownloaderInterface_.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/newDownloaderInterface_.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/videoDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/videoDatabase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/videoDownloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/videoDownloader.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,20 +22,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/videoDownloader.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="227">
-              <caret line="253" selection-start-line="253" selection-end-line="253" />
+            <state relative-caret-position="60">
+              <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
               <folding>
                 <element signature="e#0#133#0" expanded="true" />
+                <element signature="e#10561#11246#0" />
                 <element signature="e#10193#10223#0" />
                 <element signature="e#10728#11251#0" />
-                <element signature="e#10055#10246#0" />
                 <element signature="e#10288#11279#0" />
                 <element signature="e#11754#11784#0" />
                 <element signature="e#15226#16828#0" />
-                <element signature="e#16868#19180#0" />
               </folding>
             </state>
           </provider>
@@ -68,17 +64,16 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/videoDatabase.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+            <state relative-caret-position="113">
+              <caret line="517" column="63" lean-forward="true" selection-start-line="517" selection-start-column="63" selection-end-line="517" selection-end-column="63" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
                 <element signature="e#1383#2029#0" />
                 <element signature="e#2087#3383#0" />
                 <element signature="e#3929#4351#0" />
-                <element signature="e#4394#4837#0" />
                 <element signature="e#4894#5409#0" />
               </folding>
             </state>
@@ -112,22 +107,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/security.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apiCalls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="25" column="56" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
+            <state relative-caret-position="176">
+              <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -138,21 +121,19 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/authentication.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="267">
-              <caret line="777" column="84" selection-start-line="777" selection-start-column="84" selection-end-line="777" selection-end-column="84" />
+            <state relative-caret-position="124">
+              <caret line="194" column="49" lean-forward="true" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
               <folding>
                 <element signature="e#1#46#0" expanded="true" />
-                <element signature="e#815#2676#0" />
                 <element signature="e#2720#5226#0" />
                 <element signature="e#5271#5552#0" />
-                <element signature="e#5785#12383#0" />
                 <element signature="e#6217#6377#0" />
-                <element signature="e#6746#8939#0" />
                 <element signature="e#14773#14933#0" />
                 <element signature="e#15302#17495#0" />
                 <element signature="e#18686#19738#0" />
                 <element signature="e#13051#13211#0" />
                 <element signature="e#13270#17289#0" />
+                <element signature="e#22610#26000#0" />
               </folding>
             </state>
           </provider>
@@ -169,8 +150,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>new user creation ons</find>
-      <find>threadLicens</find>
       <find>self.frame</find>
       <find>self.frame_li</find>
       <find>client upd</find>
@@ -198,6 +177,8 @@
       <find>label</find>
       <find>coll</find>
       <find>showhidestat</find>
+      <find>default server</find>
+      <find>checking</find>
       <find>install</find>
     </findStrings>
   </component>
@@ -224,13 +205,13 @@
         <option value="$PROJECT_DIR$/threadGetInternetDownloadSpeed.py" />
         <option value="$PROJECT_DIR$/childItemWindow.py" />
         <option value="$PROJECT_DIR$/getServerLists.py" />
-        <option value="$PROJECT_DIR$/environment.py" />
         <option value="$PROJECT_DIR$/generalFunctions.py" />
-        <option value="$PROJECT_DIR$/videoDatabase.py" />
         <option value="$PROJECT_DIR$/authentication.py" />
         <option value="$PROJECT_DIR$/runtimeStyleSheet.py" />
         <option value="$PROJECT_DIR$/apiCalls.py" />
+        <option value="$PROJECT_DIR$/environment.py" />
         <option value="$PROJECT_DIR$/videoDownloader.py" />
+        <option value="$PROJECT_DIR$/videoDatabase.py" />
       </list>
     </option>
   </component>
@@ -252,11 +233,6 @@
             <path>
               <item name="JVD" type="b2602c69:ProjectViewProjectNode" />
               <item name="JVD" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="JVD" type="b2602c69:ProjectViewProjectNode" />
-              <item name="JVD" type="462c0819:PsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -399,19 +375,20 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21462639" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.312611" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.43694493" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3285968" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.22024867" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.4955595" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.3285968" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -603,22 +580,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/environment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="36" column="78" lean-forward="true" selection-start-line="36" selection-start-column="78" selection-end-line="36" selection-end-column="78" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/requirements.txt">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/threadLicenseChecker.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -631,37 +594,6 @@
             <element signature="e#1729#1925#0" />
             <element signature="e#2604#3727#0" />
             <element signature="e#3775#7238#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/security.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/authentication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="777" column="84" selection-start-line="777" selection-start-column="84" selection-end-line="777" selection-end-column="84" />
-          <folding>
-            <element signature="e#1#46#0" expanded="true" />
-            <element signature="e#815#2676#0" />
-            <element signature="e#2720#5226#0" />
-            <element signature="e#5271#5552#0" />
-            <element signature="e#5785#12383#0" />
-            <element signature="e#6217#6377#0" />
-            <element signature="e#6746#8939#0" />
-            <element signature="e#14773#14933#0" />
-            <element signature="e#15302#17495#0" />
-            <element signature="e#18686#19738#0" />
-            <element signature="e#13051#13211#0" />
-            <element signature="e#13270#17289#0" />
           </folding>
         </state>
       </provider>
@@ -688,25 +620,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/videoDatabase.py">
+    <entry file="file://$PROJECT_DIR$/environment.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+        <state relative-caret-position="129">
+          <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/security.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3150">
+          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#1383#2029#0" />
-            <element signature="e#2087#3383#0" />
-            <element signature="e#3929#4351#0" />
-            <element signature="e#4394#4837#0" />
-            <element signature="e#4894#5409#0" />
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authentication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="124">
+          <caret line="194" column="49" lean-forward="true" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
+          <folding>
+            <element signature="e#1#46#0" expanded="true" />
+            <element signature="e#2720#5226#0" />
+            <element signature="e#5271#5552#0" />
+            <element signature="e#6217#6377#0" />
+            <element signature="e#14773#14933#0" />
+            <element signature="e#15302#17495#0" />
+            <element signature="e#18686#19738#0" />
+            <element signature="e#13051#13211#0" />
+            <element signature="e#13270#17289#0" />
+            <element signature="e#22610#26000#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/apiCalls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="25" column="56" selection-start-line="25" selection-start-column="56" selection-end-line="25" selection-end-column="56" />
+        <state relative-caret-position="176">
+          <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
           </folding>
@@ -715,17 +675,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/videoDownloader.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="253" selection-start-line="253" selection-end-line="253" />
+        <state relative-caret-position="60">
+          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
           <folding>
             <element signature="e#0#133#0" expanded="true" />
+            <element signature="e#10561#11246#0" />
             <element signature="e#10193#10223#0" />
             <element signature="e#10728#11251#0" />
-            <element signature="e#10055#10246#0" />
             <element signature="e#10288#11279#0" />
             <element signature="e#11754#11784#0" />
             <element signature="e#15226#16828#0" />
-            <element signature="e#16868#19180#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/videoDatabase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="517" column="63" lean-forward="true" selection-start-line="517" selection-start-column="63" selection-end-line="517" selection-end-column="63" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#1383#2029#0" />
+            <element signature="e#2087#3383#0" />
+            <element signature="e#3929#4351#0" />
+            <element signature="e#4894#5409#0" />
           </folding>
         </state>
       </provider>

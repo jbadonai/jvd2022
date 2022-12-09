@@ -73,14 +73,10 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             print("[Debug] \tSetting up database")
             self.database.initialize_database()
 
-            fbConfig = {'un': 'jbadonaiventures@gmail.com', 'pw': 'Afolayemi1'}
-            print(fbConfig)
-            fbConfigEnc = JBEncrypter().encrypt(str(fbConfig))
-            print("------------------------------------------------")
+            fbConfigEnc = JBEncrypter().encrypt("http://3.95.154.119/", Config().config('ENCRYPT_PASSWORD'))
+            print("------------------DEFAULT SERVER ENC------------------------------")
             print(fbConfigEnc)
-            print("------------------------------------------------")
-            print(eval(JBEncrypter().decrypt(fbConfigEnc)))
-            print("------------------------------------------------")
+
 
             self.spinBoxNumberOfRetries.setStyle(Proxy())
             self.spinBoxConcurrentDownload.setStyle(Proxy())

@@ -518,7 +518,7 @@ class VideoDatabase():
                 self.setup_create_settings("server_list", None)
 
             if self.is_setting_key_in_database("default_server") is False:
-                self.setup_create_settings("default_server", b'gAAAAABjkCQdmCG_gABWrG0aVoi9QRJNn9sTL227wdAuOAFu07O437ViA9gzQ8XwaUxx-8r9U2mYNitih9SOriE1BqzWf4_NxePXod31_D-wT7njC07tVqE=')
+                self.setup_create_settings("default_server", b'gAAAAABjkzU6SloQLb0TU7BKTE3Of2Fr7R55NEy0cdgamyvvoEkp_Zfq7dS6XeymioKJJcBzhnYvGFT0Hmdo-gBBJE1MFqNEPRSK7qG1mKf3xRGQbA9uLB0=')
 
                 # WORNG SERVER FOR TESTING
                 # self.setup_create_settings("default_server", b'gAAAAABjkD-tJpew_5OC_DsY-YYjXgTrK95P8_IvhxaFEU6SIDVvEXUk2Bf9tcDtOb1b4uEbXwmCI3QcjiqscUa1XDTG3PBmiEaTgsFSyeJX-gwqePsPsCo=')
