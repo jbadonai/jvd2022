@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/authentication.py" line="683" mnemonic="4" />
-    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="382" mnemonic="9" />
-    <bookmark url="file://$PROJECT_DIR$/authentication.py" line="628" mnemonic="2" />
-    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="75" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/authentication.py" line="686" mnemonic="4" />
+    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="902" mnemonic="3" />
+    <bookmark url="file://$PROJECT_DIR$/videoDownloader.py" line="254" mnemonic="9" />
+    <bookmark url="file://$PROJECT_DIR$/menuItemsList.py" line="97" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/runtimeStyleSheet.py" line="788" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3bb09374-bb25-4b9b-b3cc-8391495d3006" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/getSubtitleList.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/merge.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payments.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/streamCapture.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/supported_sites.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/threadGetEntry_BAK.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/threadLoadSupportedSites.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environment.py" beforeDir="false" afterPath="$PROJECT_DIR$/environment.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/apiCalls.py" beforeDir="false" afterPath="$PROJECT_DIR$/apiCalls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication.py" beforeDir="false" afterPath="$PROJECT_DIR$/authentication.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/childItemWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/childItemWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generalFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalFunctions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libjcfvd.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/menuItemsList.py" beforeDir="false" afterPath="$PROJECT_DIR$/menuItemsList.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/parentItemWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/parentItemWindow.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runtimeStyleSheet.py" beforeDir="false" afterPath="$PROJECT_DIR$/runtimeStyleSheet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test2.py" beforeDir="false" afterPath="$PROJECT_DIR$/test2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threadDownloaderEngine.py" beforeDir="false" afterPath="$PROJECT_DIR$/threadDownloaderEngine.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threadGetEntry.py" beforeDir="false" afterPath="$PROJECT_DIR$/threadGetEntry.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/threadLoadChildrenItems.py" beforeDir="false" afterPath="$PROJECT_DIR$/threadLoadChildrenItems.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/newDownloaderInterface.ui" beforeDir="false" afterPath="$PROJECT_DIR$/ui/newDownloaderInterface.ui" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/newDownloaderInterface_.py" beforeDir="false" afterPath="$PROJECT_DIR$/ui/newDownloaderInterface_.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/videoDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/videoDatabase.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/videoDownloader.py" beforeDir="false" afterPath="$PROJECT_DIR$/videoDownloader.py" afterDir="false" />
     </list>
@@ -25,92 +46,39 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/videoDownloader.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="60">
-              <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
+            <state relative-caret-position="84">
+              <caret line="687" selection-start-line="687" selection-end-line="687" />
               <folding>
-                <element signature="e#0#133#0" expanded="true" />
-                <element signature="e#10561#11246#0" />
-                <element signature="e#10193#10223#0" />
-                <element signature="e#10728#11251#0" />
-                <element signature="e#10288#11279#0" />
-                <element signature="e#11754#11784#0" />
-                <element signature="e#15226#16828#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/runtimeStyleSheet.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
-              <caret line="930" column="116" selection-start-line="930" selection-start-column="116" selection-end-line="930" selection-end-column="116" />
-              <folding>
-                <element signature="e#20002#20194#0" />
-                <element signature="e#42859#43815#0" />
-                <element signature="e#44361#44565#0" />
-                <element signature="e#44602#51310#0" />
-                <element signature="e#46141#46718#0" />
-                <element signature="e#46766#46965#0" />
-                <element signature="e#47007#47173#0" />
-                <element signature="e#47306#47407#0" />
-                <element signature="e#47470#50972#0" />
-                <element signature="e#51018#51310#0" />
-                <element signature="e#51346#57041#0" />
-                <element signature="e#57078#61907#0" />
-                <element signature="e#61948#67627#0" />
+                <element signature="e#0#154#0" expanded="true" />
+                <element signature="e#11282#11679#0" />
+                <element signature="e#11729#12647#0" />
+                <element signature="e#12693#14273#0" />
+                <element signature="e#14307#15244#0" />
+                <element signature="e#15274#15379#0" />
+                <element signature="e#15426#15768#0" />
+                <element signature="e#15802#16199#0" />
+                <element signature="e#16235#17196#0" />
+                <element signature="e#17230#17421#0" />
+                <element signature="e#17463#18812#0" />
+                <element signature="e#19358#23786#0" />
+                <element signature="e#23833#25435#0" />
+                <element signature="e#25475#27787#0" />
+                <element signature="e#27828#29202#0" />
+                <element signature="e#29248#29291#0" />
+                <element signature="e#29335#29377#0" />
+                <element signature="e#29817#30903#0" />
+                <element signature="e#31339#31346#0" />
+                <element signature="e#35012#40229#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/videoDatabase.py">
+        <entry file="file://$PROJECT_DIR$/runtimeStyleSheet.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="113">
-              <caret line="517" column="63" lean-forward="true" selection-start-line="517" selection-start-column="63" selection-end-line="517" selection-end-column="63" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#1383#2029#0" />
-                <element signature="e#2087#3383#0" />
-                <element signature="e#3929#4351#0" />
-                <element signature="e#4894#5409#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/threadLicenseChecker.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1083">
-              <caret line="228" column="41" selection-start-line="228" selection-start-column="41" selection-end-line="228" selection-end-column="41" />
-              <folding>
-                <element signature="e#0#24#0" expanded="true" />
-                <element signature="e#365#969#0" />
-                <element signature="e#999#1198#0" />
-                <element signature="e#1729#1925#0" />
-                <element signature="e#2604#3727#0" />
-                <element signature="e#3775#7238#0" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/apiCalls.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
+            <state relative-caret-position="204">
+              <caret line="802" column="129" selection-start-line="802" selection-start-column="129" selection-end-line="802" selection-end-column="129" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
               </folding>
@@ -119,22 +87,94 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/authentication.py">
+        <entry file="file://$PROJECT_DIR$/parentItemWindow.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="194" column="49" lean-forward="true" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
+            <state relative-caret-position="585">
+              <caret line="146" selection-start-line="146" selection-end-line="146" />
               <folding>
-                <element signature="e#1#46#0" expanded="true" />
-                <element signature="e#2720#5226#0" />
-                <element signature="e#5271#5552#0" />
-                <element signature="e#6217#6377#0" />
-                <element signature="e#14773#14933#0" />
-                <element signature="e#15302#17495#0" />
-                <element signature="e#18686#19738#0" />
-                <element signature="e#13051#13211#0" />
-                <element signature="e#13270#17289#0" />
-                <element signature="e#22610#26000#0" />
+                <element signature="e#0#151#0" expanded="true" />
+                <element signature="e#6669#7088#0" />
+                <element signature="e#12418#14632#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/threadAnimations.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-802">
+              <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/threadDownloaderEngine.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="504">
+              <caret line="137" column="27" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="27" />
+              <folding>
+                <element signature="e#0#24#0" expanded="true" />
+                <element signature="e#3842#3959#0" />
+                <element signature="e#4002#5081#0" />
+                <element signature="e#5370#8175#0" />
+                <element signature="e#8212#12330#0" />
+                <element signature="e#12486#18949#0" />
+                <element signature="e#18978#22947#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/childItemWindow.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="117">
+              <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
+              <folding>
+                <element signature="e#0#73#0" expanded="true" />
+                <element signature="e#4094#6083#0" />
+                <element signature="e#6130#7639#0" />
+                <element signature="e#7680#7858#0" />
+                <element signature="e#7968#8141#0" />
+                <element signature="e#8243#8463#0" />
+                <element signature="e#8498#8741#0" />
+                <element signature="e#10646#11162#0" />
+                <element signature="e#11218#11462#0" />
+                <element signature="e#13916#16371#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/threadGetEntry.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="179">
+              <caret line="453" selection-start-line="453" selection-end-line="453" />
+              <folding>
+                <element signature="e#0#91#0" expanded="true" />
+                <element signature="e#2353#2541#0" />
+                <element signature="e#3068#3303#0" />
+                <element signature="e#3649#3965#0" />
+                <element signature="e#12243#17105#0" />
+                <element signature="e#10303#10307#0" />
+                <element signature="e#11351#12329#0" />
+                <element signature="e#18874#21289#0" />
+                <element signature="e#14233#15288#0" />
+                <element signature="e#15444#15991#0" />
+                <element signature="e#16090#16344#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/test2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="147">
+              <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -150,37 +190,41 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.frame</find>
-      <find>self.frame_li</find>
-      <find>client upd</find>
-      <find>Qmessagebox</find>
-      <find>self.buttonacti</find>
-      <find>please try ag</find>
-      <find>url</find>
-      <find>blink</find>
-      <find>if you have</find>
-      <find>display_error</find>
-      <find>apiCalls</find>
-      <find>servernot</find>
-      <find>api</find>
-      <find>for</find>
-      <find>unhandle</find>
-      <find>looking</find>
-      <find>An error occurred in the database module 'GET SETTING'</find>
-      <find>default ser</find>
-      <find>unhan</find>
-      <find>adding</find>
-      <find>invalid license code</find>
-      <find>the licens</find>
-      <find>labelEmailaddress</find>
-      <find>just fol</find>
-      <find>label</find>
-      <find>coll</find>
-      <find>showhidestat</find>
-      <find>default server</find>
-      <find>checking</find>
-      <find>install</find>
+      <find>group</find>
+      <find>wmv</find>
+      <find>download subt</find>
+      <find>UPDATE</find>
+      <find>self.checkboxauto</find>
+      <find>groupBoxPlaylistOption</find>
+      <find>change_se</find>
+      <find>too</find>
+      <find>start</find>
+      <find>self.params</find>
+      <find>noplaylist</find>
+      <find>playlist</find>
+      <find>ie_result</find>
+      <find>process_ie_result</find>
+      <find>__extract_info</find>
+      <find>extract_info</find>
+      <find>wait</find>
+      <find>nopla</find>
+      <find>chose au</find>
+      <find>'get download</find>
+      <find>common_title</find>
+      <find>available_formats</find>
+      <find>data['info']</find>
+      <find>self.entry_messages</find>
+      <find>self.is_running</find>
+      <find>extrac</find>
+      <find>mileson</find>
+      <find>parsing</find>
+      <find>self.playlistTitle</find>
+      <find>viewsupp</find>
     </findStrings>
+    <replaceStrings>
+      <replace>MPEG-2</replace>
+      <replace>WMV</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -191,8 +235,6 @@
         <option value="$PROJECT_DIR$/videoDownloader.spec" />
         <option value="$PROJECT_DIR$/venv/Lib/site-packages/speedtest.py" />
         <option value="$PROJECT_DIR$/threadLicenseChecker.py" />
-        <option value="$PROJECT_DIR$/test2.py" />
-        <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/security.py" />
         <option value="$PROJECT_DIR$/threadAnimations.py" />
         <option value="$PROJECT_DIR$/dialogs.py" />
@@ -200,26 +242,40 @@
         <option value="$PROJECT_DIR$/threadDownloadController.py" />
         <option value="$PROJECT_DIR$/threadLoadParentItem.py" />
         <option value="$PROJECT_DIR$/threadLoadDataFromDatabase.py" />
-        <option value="$PROJECT_DIR$/parentItemWindow.py" />
         <option value="$PROJECT_DIR$/exceptionList.py" />
         <option value="$PROJECT_DIR$/threadGetInternetDownloadSpeed.py" />
-        <option value="$PROJECT_DIR$/childItemWindow.py" />
         <option value="$PROJECT_DIR$/getServerLists.py" />
-        <option value="$PROJECT_DIR$/generalFunctions.py" />
-        <option value="$PROJECT_DIR$/authentication.py" />
-        <option value="$PROJECT_DIR$/runtimeStyleSheet.py" />
-        <option value="$PROJECT_DIR$/apiCalls.py" />
         <option value="$PROJECT_DIR$/environment.py" />
-        <option value="$PROJECT_DIR$/videoDownloader.py" />
+        <option value="$PROJECT_DIR$/apiCalls.py" />
+        <option value="$PROJECT_DIR$/authentication.py" />
+        <option value="$PROJECT_DIR$/supported_sites.py" />
+        <option value="$PROJECT_DIR$/threadLoadSupportedSites.py" />
+        <option value="$PROJECT_DIR$/getSubtitleList.py" />
+        <option value="$PROJECT_DIR$/generalFunctions.py" />
+        <option value="$PROJECT_DIR$/threadDownloaderEngine.py" />
         <option value="$PROJECT_DIR$/videoDatabase.py" />
+        <option value="$PROJECT_DIR$/test.py" />
+        <option value="$PROJECT_DIR$/merge.py" />
+        <option value="$PROJECT_DIR$/streamCapture.py" />
+        <option value="$PROJECT_DIR$/payments.py" />
+        <option value="$PROJECT_DIR$/threadGetEntry_BAK.py" />
+        <option value="$PROJECT_DIR$/testFolder/channel-5" />
+        <option value="$PROJECT_DIR$/test2.py" />
+        <option value="$PROJECT_DIR$/childItemWindow.py" />
+        <option value="$PROJECT_DIR$/threadLoadChildrenItems.py" />
+        <option value="$PROJECT_DIR$/menuItemsList.py" />
+        <option value="$PROJECT_DIR$/threadGetEntry.py" />
+        <option value="$PROJECT_DIR$/parentItemWindow.py" />
+        <option value="$PROJECT_DIR$/videoDownloader.py" />
+        <option value="$PROJECT_DIR$/runtimeStyleSheet.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-12" />
     <option name="y" value="-12" />
-    <option name="width" value="1944" />
-    <option name="height" value="1044" />
+    <option name="width" value="1941" />
+    <option name="height" value="1050" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -233,6 +289,11 @@
             <path>
               <item name="JVD" type="b2602c69:ProjectViewProjectNode" />
               <item name="JVD" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="JVD" type="b2602c69:ProjectViewProjectNode" />
+              <item name="JVD" type="462c0819:PsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -258,7 +319,7 @@
     </option>
   </component>
   <component name="RunManager" selected="Python.videoDownloader">
-    <configuration name="apiCalls" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="payments" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="JVD" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -270,7 +331,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/apiCalls.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/payments.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -279,7 +340,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="security" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="streamCapture" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="JVD" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -291,7 +352,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/security.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/streamCapture.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -313,6 +374,27 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test2" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="JVD" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/test2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -345,9 +427,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.videoDownloader" />
-        <item itemvalue="Python.apiCalls" />
+        <item itemvalue="Python.test2" />
+        <item itemvalue="Python.payments" />
+        <item itemvalue="Python.streamCapture" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.security" />
       </list>
     </recent_temporary>
   </component>
@@ -375,20 +458,19 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21462639" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18124007" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.43694493" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3321492" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39964476" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3285968" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.4955595" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.21847247" />
       <window_info anchor="bottom" id="Python Console" order="9" weight="0.3285968" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -397,308 +479,407 @@
     </layout>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/videoDownloaderRequests.py" />
-    <entry file="file://$PROJECT_DIR$/menuItemsList.py">
+    <entry file="file://$PROJECT_DIR$/ui/childItemWindow_.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-3465" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threadAddNewDownload.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/videoDownloader.spec">
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-1190016677/PyQt5/QtWidgets/QAbstractButton.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="10" column="28" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/speedtest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="158" column="19" lean-forward="true" selection-start-line="158" selection-start-column="19" selection-end-line="158" selection-end-column="19" />
-          <folding>
-            <element signature="e#672#681#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test2.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/customExceptions.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/dialogs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-6">
-          <caret line="34" column="51" selection-start-line="34" selection-start-column="51" selection-end-line="34" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadDownloadController.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1449">
-          <caret line="123" column="77" lean-forward="true" selection-start-line="123" selection-start-column="77" selection-end-line="123" selection-end-column="77" />
-          <folding>
-            <element signature="e#1457#2292#0" />
-            <element signature="e#2341#2761#0" />
-            <element signature="e#2809#3564#0" />
-            <element signature="e#3611#4017#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadLoadDataFromDatabase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="618">
-          <caret line="210" column="29" selection-start-line="210" selection-start-column="29" selection-end-line="210" selection-end-column="29" />
-          <folding>
-            <element signature="e#548#2669#0" />
-            <element signature="e#4310#4586#0" />
-            <element signature="e#4625#5440#0" />
-            <element signature="e#5498#5672#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.env">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-87" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/parentItemWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="391" column="16" selection-start-line="391" selection-start-column="16" selection-end-line="391" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#151#0" expanded="true" />
-            <element signature="e#4090#4465#0" />
-            <element signature="e#4507#5040#0" />
-            <element signature="e#5091#6565#0" />
-            <element signature="e#6614#7033#0" />
-            <element signature="e#7074#7272#0" />
-            <element signature="e#7306#7686#0" />
-            <element signature="e#7728#8067#0" />
-            <element signature="e#8118#8248#0" />
-            <element signature="e#8288#9635#0" />
-            <element signature="e#9682#9849#0" />
-            <element signature="e#9890#10450#0" />
-            <element signature="e#10484#11054#0" />
-            <element signature="e#11092#12323#0" />
-            <element signature="e#12363#14577#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadLoadParentItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="20" column="48" lean-forward="true" selection-start-line="20" selection-start-column="48" selection-end-line="20" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/childItemWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="316" column="71" selection-start-line="316" selection-start-column="71" selection-end-line="316" selection-end-column="71" />
-          <folding>
-            <element signature="e#0#73#0" expanded="true" />
-            <element signature="e#6130#7639#0" />
-            <element signature="e#7680#7858#0" />
-            <element signature="e#7968#8141#0" />
-            <element signature="e#8243#8463#0" />
-            <element signature="e#8498#8741#0" />
-            <element signature="e#8789#10593#0" />
-            <element signature="e#10646#11162#0" />
-            <element signature="e#11218#11462#0" />
-            <element signature="e#13173#15144#0" />
-            <element signature="e#15193#16514#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadAnimations.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="21" column="33" selection-start-line="21" selection-start-column="33" selection-end-line="21" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadGetInternetDownloadSpeed.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1071">
-          <caret line="56" column="42" selection-start-line="56" selection-start-column="42" selection-end-line="56" selection-end-column="42" />
-          <folding>
-            <element signature="e#29#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/getServerLists.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="8" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalFunctions.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="47" column="8" selection-start-line="47" selection-start-column="8" selection-end-line="47" selection-end-column="8" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadLoadChildrenItems.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1512">
-          <caret line="73" column="4" selection-start-line="73" selection-start-column="4" selection-end-line="73" selection-end-column="40" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/exceptionList.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" selection-start-line="12" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/requirements.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadLicenseChecker.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1083">
-          <caret line="228" column="41" selection-start-line="228" selection-start-column="41" selection-end-line="228" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-            <element signature="e#365#969#0" />
-            <element signature="e#999#1198#0" />
-            <element signature="e#1729#1925#0" />
-            <element signature="e#2604#3727#0" />
-            <element signature="e#3775#7238#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/runtimeStyleSheet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="930" column="116" selection-start-line="930" selection-start-column="116" selection-end-line="930" selection-end-column="116" />
-          <folding>
-            <element signature="e#20002#20194#0" />
-            <element signature="e#42859#43815#0" />
-            <element signature="e#44361#44565#0" />
-            <element signature="e#44602#51310#0" />
-            <element signature="e#46141#46718#0" />
-            <element signature="e#46766#46965#0" />
-            <element signature="e#47007#47173#0" />
-            <element signature="e#47306#47407#0" />
-            <element signature="e#47470#50972#0" />
-            <element signature="e#51018#51310#0" />
-            <element signature="e#51346#57041#0" />
-            <element signature="e#57078#61907#0" />
-            <element signature="e#61948#67627#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/environment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="129">
-          <caret line="32" column="85" selection-start-line="32" selection-start-column="85" selection-end-line="32" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/security.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3150">
-          <caret line="27" column="29" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        <state relative-caret-position="115">
+          <caret line="50" column="8" selection-start-line="50" selection-start-column="8" selection-end-line="50" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/authentication.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="194" column="49" lean-forward="true" selection-start-line="194" selection-start-column="49" selection-end-line="194" selection-end-column="49" />
+        <state relative-caret-position="5544">
+          <caret line="293" column="8" selection-start-line="293" selection-start-column="8" selection-end-line="293" selection-end-column="8" />
           <folding>
             <element signature="e#1#46#0" expanded="true" />
-            <element signature="e#2720#5226#0" />
-            <element signature="e#5271#5552#0" />
-            <element signature="e#6217#6377#0" />
-            <element signature="e#14773#14933#0" />
-            <element signature="e#15302#17495#0" />
-            <element signature="e#18686#19738#0" />
-            <element signature="e#13051#13211#0" />
-            <element signature="e#13270#17289#0" />
-            <element signature="e#22610#26000#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apiCalls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="27" column="49" selection-start-line="27" selection-start-column="49" selection-end-line="27" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#30#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/videoDownloader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="74" lean-forward="true" selection-start-line="74" selection-end-line="74" />
-          <folding>
-            <element signature="e#0#133#0" expanded="true" />
-            <element signature="e#10561#11246#0" />
-            <element signature="e#10193#10223#0" />
-            <element signature="e#10728#11251#0" />
-            <element signature="e#10288#11279#0" />
-            <element signature="e#11754#11784#0" />
-            <element signature="e#15226#16828#0" />
+            <element signature="e#2800#4308#0" />
+            <element signature="e#15374#19353#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/videoDatabase.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="113">
-          <caret line="517" column="63" lean-forward="true" selection-start-line="517" selection-start-column="63" selection-end-line="517" selection-end-column="63" />
+        <state relative-caret-position="12054">
+          <caret line="575" column="26" selection-start-line="575" selection-start-column="26" selection-end-line="575" selection-end-column="26" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#1383#2029#0" />
-            <element signature="e#2087#3383#0" />
-            <element signature="e#3929#4351#0" />
-            <element signature="e#4894#5409#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apiCalls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3465">
+          <caret line="174" column="8" selection-start-line="174" selection-start-column="8" selection-end-line="174" selection-end-column="81" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/yt_dlp/YoutubeDL.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="284" column="9" selection-start-line="284" selection-start-column="4" selection-end-line="284" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/merge.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/streamCapture.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="372" column="20" selection-start-line="372" selection-start-column="20" selection-end-line="372" selection-end-column="20" />
+          <folding>
+            <element signature="e#24#33#0" expanded="true" />
+            <element signature="e#296#370#0" />
+            <element signature="e#405#484#0" />
+            <element signature="e#516#590#0" />
+            <element signature="e#632#899#0" />
+            <element signature="e#1079#1681#0" />
+            <element signature="e#1713#1741#0" />
+            <element signature="e#2844#4696#0" />
+            <element signature="e#4648#4710#0" />
+            <element signature="e#4819#5033#0" />
+            <element signature="e#5045#5257#0" />
+            <element signature="e#5437#9785#0" />
+            <element signature="e#9853#10501#0" />
+            <element signature="e#10914#11681#0" />
+            <element signature="e#11763#12009#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/payments.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="6" column="40" lean-forward="true" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#20#0" expanded="true" />
+            <element signature="e#86#282#0" />
+            <element signature="e#328#678#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/uploader">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/uploader_id">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/uploader_url">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/tags">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/entries">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-504" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/extractor">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/webpage_url">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/webpage_url_domain">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/epoch">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/entry-1">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret lean-forward="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/_type">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/availability">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/channel">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/channel_follower_count">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/description">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/extractor_key">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/id">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/original_url">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/requested_entries">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/playlist_count">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/thumbnails">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/title">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threadGetEntry_BAK.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="325">
+          <caret line="588" selection-start-line="588" selection-end-line="588" />
+          <folding>
+            <element signature="e#0#91#0" expanded="true" />
+            <element signature="e#1271#2375#0" />
+            <element signature="e#2405#2632#0" />
+            <element signature="e#2661#3048#0" />
+            <element signature="e#3094#3329#0" />
+            <element signature="e#4500#4573#0" />
+            <element signature="e#11798#13400#0" />
+            <element signature="e#13490#14906#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/Channel-5">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret column="224" selection-end-column="983240" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ui/newDownloaderInterface_.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="387" column="13" selection-start-line="387" selection-start-column="13" selection-end-line="387" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/Channel-2">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/Channel-0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret column="273" lean-forward="true" selection-end-column="317678" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/Channel-1">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret column="427" lean-forward="true" selection-end-column="318665" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/Channel-20">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-column="49300" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/testFolder/Channels - 0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret column="1399" selection-end-column="327633" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threadLoadChildrenItems.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="92" column="31" lean-forward="true" selection-start-line="92" selection-start-column="31" selection-end-line="92" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/menuItemsList.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-866">
+          <caret line="168" column="126" lean-forward="true" selection-start-line="168" selection-start-column="126" selection-end-line="168" selection-end-column="126" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+            <element signature="e#437#1484#0" />
+            <element signature="e#1520#3663#0" />
+            <element signature="e#8804#10221#0" />
+            <element signature="e#10299#10982#0" />
+            <element signature="e#10316#10379#0" />
+            <element signature="e#11017#11717#0" />
+            <element signature="e#11035#11098#0" />
+            <element signature="e#11761#12623#0" />
+            <element signature="e#11778#11841#0" />
+            <element signature="e#12665#13791#0" />
+            <element signature="e#12934#12997#0" />
+            <element signature="e#13835#14537#0" />
+            <element signature="e#14024#14537#0" />
+            <element signature="e#14582#15285#0" />
+            <element signature="e#14772#15285#0" />
+            <element signature="e#15338#16137#0" />
+            <element signature="e#16189#17709#0" />
+            <element signature="e#16392#16777#0" />
+            <element signature="e#16725#17709#0" />
+            <element signature="e#16743#16806#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threadDownloaderEngine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="504">
+          <caret line="137" column="27" selection-start-line="137" selection-start-column="27" selection-end-line="137" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#3842#3959#0" />
+            <element signature="e#4002#5081#0" />
+            <element signature="e#5370#8175#0" />
+            <element signature="e#8212#12330#0" />
+            <element signature="e#12486#18949#0" />
+            <element signature="e#18978#22947#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/childItemWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="117">
+          <caret line="64" column="43" selection-start-line="64" selection-start-column="43" selection-end-line="64" selection-end-column="43" />
+          <folding>
+            <element signature="e#0#73#0" expanded="true" />
+            <element signature="e#4094#6083#0" />
+            <element signature="e#6130#7639#0" />
+            <element signature="e#7680#7858#0" />
+            <element signature="e#7968#8141#0" />
+            <element signature="e#8243#8463#0" />
+            <element signature="e#8498#8741#0" />
+            <element signature="e#10646#11162#0" />
+            <element signature="e#11218#11462#0" />
+            <element signature="e#13916#16371#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threadGetEntry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="453" selection-start-line="453" selection-end-line="453" />
+          <folding>
+            <element signature="e#0#91#0" expanded="true" />
+            <element signature="e#2353#2541#0" />
+            <element signature="e#3068#3303#0" />
+            <element signature="e#3649#3965#0" />
+            <element signature="e#12243#17105#0" />
+            <element signature="e#10303#10307#0" />
+            <element signature="e#11351#12329#0" />
+            <element signature="e#18874#21289#0" />
+            <element signature="e#14233#15288#0" />
+            <element signature="e#15444#15991#0" />
+            <element signature="e#16090#16344#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/parentItemWindow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="585">
+          <caret line="146" selection-start-line="146" selection-end-line="146" />
+          <folding>
+            <element signature="e#0#151#0" expanded="true" />
+            <element signature="e#6669#7088#0" />
+            <element signature="e#12418#14632#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/threadAnimations.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-802">
+          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/videoDownloader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="687" selection-start-line="687" selection-end-line="687" />
+          <folding>
+            <element signature="e#0#154#0" expanded="true" />
+            <element signature="e#11282#11679#0" />
+            <element signature="e#11729#12647#0" />
+            <element signature="e#12693#14273#0" />
+            <element signature="e#14307#15244#0" />
+            <element signature="e#15274#15379#0" />
+            <element signature="e#15426#15768#0" />
+            <element signature="e#15802#16199#0" />
+            <element signature="e#16235#17196#0" />
+            <element signature="e#17230#17421#0" />
+            <element signature="e#17463#18812#0" />
+            <element signature="e#19358#23786#0" />
+            <element signature="e#23833#25435#0" />
+            <element signature="e#25475#27787#0" />
+            <element signature="e#27828#29202#0" />
+            <element signature="e#29248#29291#0" />
+            <element signature="e#29335#29377#0" />
+            <element signature="e#29817#30903#0" />
+            <element signature="e#31339#31346#0" />
+            <element signature="e#35012#40229#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/runtimeStyleSheet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="802" column="129" selection-start-line="802" selection-start-column="129" selection-end-line="802" selection-end-column="129" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
           </folding>
         </state>
       </provider>

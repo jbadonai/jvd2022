@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QSize
-from PyQt5.QtWidgets import QCheckBox, QLabel, QToolButton,  QSpinBox, QPushButton, QFrame,QProxyStyle
+from PyQt5.QtWidgets import QCheckBox, QLabel, QToolButton,  QSpinBox, QPushButton, QFrame,QProxyStyle, QComboBox
 from generalFunctions import GeneralFunctions
 
 
@@ -25,6 +25,13 @@ class JbadonaiStyleSheetCode:
         margin:0;
         padding:0;
         }
+        
+        QToolTip { 
+                           background-color: rgb(25,25,25); 
+                           color: rgb(0, 255, 127); 
+                           border: 1px solid qlineargradient(spread:pad, x1:0, y1:0.994318, x2:0, y2:0, stop:0 rgba(90, 90, 90, 255), stop:0.181818 rgba(197, 197, 197, 255), stop:0.829545 rgba(213, 213, 213, 255), stop:0.98 rgba(97, 97, 97, 255), stop:1 rgba(0, 0, 0, 0));
+                           padding: 10px;
+                           }
 
         QScrollBar::add-line:vertical, QScrollBar::add-line:horizontal  {
         height: 0px;
@@ -78,6 +85,13 @@ class JbadonaiStyleSheetCode:
         margin:0;
         padding:0;
         }
+        
+        QToolTip { 
+                           background-color: rgb(25,25,25); 
+                           color: rgb(0, 255, 127); 
+                           border: 1px solid qlineargradient(spread:pad, x1:0, y1:0.994318, x2:0, y2:0, stop:0 rgba(90, 90, 90, 255), stop:0.181818 rgba(197, 197, 197, 255), stop:0.829545 rgba(213, 213, 213, 255), stop:0.98 rgba(97, 97, 97, 255), stop:1 rgba(0, 0, 0, 0));
+                           padding: 10px;
+                           }
 
         QScrollBar::add-line:vertical, QScrollBar::add-line:horizontal  {
         height: 0px;
@@ -205,6 +219,15 @@ class JbadonaiStyleSheetCode:
             color:black;
             }
         """
+        return style
+
+    def tooltip_stylesheet(self):
+        style = """QToolTip { 
+                           background-color: black; 
+                           color: white; 
+                           border: black solid 1px
+        """
+
         return style
 
     def button_no_border(self, button_to_style, font_size=10, font_color="gray", background="transparent", icon_size=20, padding="2", margin=2):
@@ -694,9 +717,11 @@ class VideoDownloaderStyleSheet():
         self._style_statistics_panel()
         self._style_download_area_panel()
 
+
     # ==================================================
     def _style_initial_reset(self):
         self.my_style.reset_styles(self.myself)
+
 
     def _style_centralwidget(self):
         self.my_style.container_no_border([self.myself.centralWidget()], background=self.color_central)
@@ -748,6 +773,10 @@ class VideoDownloaderStyleSheet():
         self.my_style.button_with_border([self.myself.buttonActivate], b_radius=borderRadius, padding="5", b_size=1,
                                          icon_size=iconSize, b_color=self.color_primary_green,
                                          background=self.color_bright_blue, font_color=self.color_bright_white)
+
+        # self.my_style.button_with_border([self.myself.buttonViewSupportedSites], b_radius=borderRadius, padding="1",
+        #                                  b_size=1, icon_size=iconSize, b_color=self.color_bright_white)
+
         for button in self.myself.frame_settings.children():
             if type(button) == QPushButton:
 
@@ -759,21 +788,25 @@ class VideoDownloaderStyleSheet():
                 self.my_style.append_with_pressed([button], b_size=1, background=self.color_button_pressed,
                                                   b_color=self.color_bright_yellow, b_radius=borderRadius)
 
+        self.my_style.container_with_border([self.myself.line,self.myself.line_2, self.myself.line_3, self.myself.line_4],
+                                            margin="10,0", b_size=1,  b_color=self.color_radial_gradient)
+
         for button in self.myself.frame_theme.children():
             if type(button) == QPushButton:
 
-                self.my_style.button_with_border([button], b_radius=borderRadius, padding="5", b_size=1, icon_size=iconSize)
+                self.my_style.button_with_border([button, self.myself.buttonRefreshPlaylist,self.myself.buttonViewSupportedSites], b_radius=borderRadius, padding="5", b_size=1,
+                                                 icon_size=iconSize, font_size=9)
 
-                self.my_style.append_with_hover([button], b_size=1, background=self.color_button_hover,
+                self.my_style.append_with_hover([button, self.myself.buttonRefreshPlaylist,self.myself.buttonViewSupportedSites], b_size=1, background=self.color_button_hover,
                                                 b_color=self.color_bright_white, b_radius=borderRadius)
 
-                self.my_style.append_with_pressed([button], b_size=1, background=self.color_button_pressed,
-                                                  b_color=self.color_bright_yellow, b_radius=borderRadius)
+                self.my_style.append_with_pressed([button, self.myself.buttonRefreshPlaylist,self.myself.buttonViewSupportedSites], b_size=1, background=self.color_button_pressed,
+                                                  b_color=self.color_bright_yellow, b_radius=borderRadius, font_size=8)
 
         # self.frame_owner
         # self.textOwner
-        self.my_style.container_with_border([self.myself.frame_owner], b_size=1, b_color=self.color_radial_gradient,
-                                            ba=False, br=True, bl=True)
+        # self.my_style.container_with_border([self.myself.frame_owner], b_size=1, b_color=self.color_radial_gradient,
+        #                                     ba=False, br=True, bl=True)
         self.my_style.container_no_border([self.myself.textOwner],font_color=self.primary_border_color, font_size=7)
 
 
@@ -804,22 +837,27 @@ class VideoDownloaderStyleSheet():
                                           font_size=10, b_size=1, b_color=self.primary_border_color, b_radius=20,
                                           font_color=self.primary_border_color)
 
-        self.my_style.container_with_border([self.myself.groupBoxDownloadOption], font_color=self.color_pale_white,
+        self.my_style.container_with_border([self.myself.groupBoxDownloadOption, self.myself.groupBoxVideoFormat], font_color=self.color_pale_white,
                                             padding="30,0,0,10", ba=False, b_radius=0, b_size=5,
                                             b_color=self.color_radial_gradient, bl=True, font_size=8)
 
         self.my_style.container_no_border(object_to_style=(self.myself.radioButtonAudioDownload,
-                                                           self.myself.radioButtonVideoDownload), padding=0,
+                                                           self.myself.radioButtonVideoDownload,
+                                                           self.myself.radioButtonMkv,
+                                                           self.myself.radioButtonMp4), padding=0,
                                           font_color=self.color_primary_green, font_size=9, margin=5)
 
-        self.my_style.append_with_hover((self.myself.radioButtonAudioDownload, self.myself.radioButtonVideoDownload),
+        self.my_style.append_with_hover((self.myself.radioButtonAudioDownload, self.myself.radioButtonVideoDownload,self.myself.radioButtonMkv,
+                                                           self.myself.radioButtonMp4),
                                         font_color=self.color_bright_yellow)
 
-        self.my_style.append_with_special((self.myself.radioButtonAudioDownload, self.myself.radioButtonVideoDownload),
+        self.my_style.append_with_special((self.myself.radioButtonAudioDownload, self.myself.radioButtonVideoDownload, self.myself.radioButtonMkv,
+                                                           self.myself.radioButtonMp4),
                                           border=True, b_color=self.primary_border_color, b_size=1, b_radius=radio_radius,
                                           background=self.color_bright_yellow, special="indicator::checked")
 
-        self.my_style.append_with_special((self.myself.radioButtonAudioDownload, self.myself.radioButtonVideoDownload),
+        self.my_style.append_with_special((self.myself.radioButtonAudioDownload, self.myself.radioButtonVideoDownload, self.myself.radioButtonMkv,
+                                                           self.myself.radioButtonMp4),
                                           border=True, b_color=self.color_bright_white, b_size=1, b_radius=radio_radius,
                                           background=self.color_transparent, special="indicator::unchecked")
 
@@ -844,6 +882,7 @@ class VideoDownloaderStyleSheet():
     def _style_settings_panel(self):
         self.my_style.container_with_border([self.myself.frame_settings_head], ba=False, bb=True,
                                             b_color=self.color_radial_gradient, padding="0,0,5,0", b_size=8)
+
 
         self.my_style.container_no_border([self.myself.labelSettings],font_size=12,
                                           font_color=self.primary_border_color)
@@ -907,6 +946,7 @@ class VideoDownloaderStyleSheet():
                     self.my_style.append_with_hover([child], background=self.color_bright_hover,
                                                     font_color=self.color_primary_black)
 
+
         # styling license panel
         self.my_style.container_with_border([self.myself.frame_license_info], ba=True,b_size=1,
                                             b_color=self.primary_border_color, padding=10,
@@ -922,6 +962,13 @@ class VideoDownloaderStyleSheet():
         self.my_style.button_with_border([self.myself.buttonActivateLicense], b_color=self.primary_border_color,
                                          b_radius=10, padding=5, margin="5,0",
                                          font_color=self.color_primary_black, background=self.color_primary_green)
+
+
+        self.my_style.button_with_border([ self.myself.buttonDoneWithLocalhostTest], b_color=self.primary_border_color,
+                                         b_radius=10, padding=5, margin="0, 10", font_size=9,
+                                         font_color=self.color_primary_black, background=self.color_primary_green)
+
+
 
     def _style_statistics_panel(self):
 
@@ -958,6 +1005,17 @@ class VideoDownloaderStyleSheet():
         self.my_style.container_no_border([self.myself.frame_downloads_list], margin="5,20")
 
         self.my_style.container_no_border([self.myself.parentScrolArea], padding=0, background=self.color_transparent)
+
+        self.my_style.container_no_border([self.myself.SupportedSitescrollArea], padding=0, background=self.color_transparent)
+
+
+        self.my_style.container_with_border([self.myself.frame_supported_sites], ba=False, bb=True,
+                                                b_color=self.color_radial_gradient, padding="0,0,5,0", b_size=8)
+        # self.labelSupportedSiteTitle
+        # self.frame_supported_sites
+
+        self.my_style.container_no_border([self.myself.labelSupportedSiteTitle],font_size=14,
+                                          font_color=self.color_pale_white)
 
 
 class ParentItemStyleSheet():

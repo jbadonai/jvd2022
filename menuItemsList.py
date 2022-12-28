@@ -1,11 +1,13 @@
 import os
 from PyQt5.QtWidgets import  QMessageBox
+from PyQt5 import QtCore
 import subprocess
 import pyperclip as clipboard
 from videoDatabase import VideoDatabase
 import time
 from exceptionList import  *
 from generalFunctions import GeneralFunctions
+from dialogs import MessageBox as msgBox
 
 
 class MenuItemsList():
@@ -93,12 +95,13 @@ class MenuItemsList():
     # item window menu function starts here
     def copy_url(self):
         clipboard.copy(self.my_parent.url)
-        QMessageBox.information(self.my_parent, 'URL copied', 'ULR copied to the clipboard')
+        # QMessageBox.information(self.my_parent, 'URL copied', 'ULR copied to the clipboard')
+        msgBox().show_information('URL copied', 'ULR copied to the clipboard')
 
     def copy_playlist_url(self):
         clipboard.copy(self.my_parent.playlist_url)
-        QMessageBox.information(self.my_parent, 'URL copied', 'Playlist URL copied to the clipboard')
-        # print('copying playlist url...')
+        # QMessageBox.information(self.my_parent, 'URL copied', 'Playlist URL copied to the clipboard')
+        msgBox().show_information('URL copied', 'Playlist URL copied to the clipboard')
 
     def goto_url(self):
         self.my_parent.open_url_in_browser(self.my_parent.url)
@@ -150,15 +153,20 @@ class MenuItemsList():
                     subprocess.Popen(rf'explorer /select,"{fullFilePath}"')
                 else:
 
-                    QMessageBox.information(self.my_parent, 'File not found', 'File not found in the download directory!'
+                    # QMessageBox.information(self.my_parent, 'File not found', 'File not found in the download directory!'
+                    #                                                           ' \nPossibly the file has been moved or file '
+                    #                                                           'download is yet to be completed.\n\n'
+                    #                                                           'Please restart the download if not '
+                    #                                                           'in progress.')
+                    msgBox().show_information('File not found', 'File not found in the download directory!'
                                                                               ' \nPossibly the file has been moved or file '
                                                                               'download is yet to be completed.\n\n'
                                                                               'Please restart the download if not '
                                                                               'in progress.')
                     # subprocess.getoutput(f'start {path}')
             else:
-                QMessageBox.information(self.my_parent, "File not Found", "File not found. File or Folder must have been moved or renamed.")
-
+                # QMessageBox.information(self.my_parent, "File not Found", "File not found. File or Folder must have been moved or renamed.")
+                msgBox().show_information("File not Found", "File not found. File or Folder must have been moved or renamed.")
         except Exception as e:
 
             print(e)
@@ -201,6 +209,7 @@ class ParentMenuItemsList():
     def __init__(self, myparent=None):
         self.my_parent = myparent  # child item window
         self.selected_data = None
+        self.threadController = {}
 
     def auto_menu(self):
         item_menu_list = {
@@ -243,28 +252,34 @@ class ParentMenuItemsList():
     # item window menu function starts here
     def stop_all(self):
         try:
-            for y in range(self.my_parent.frame_parent.layout().count()):
-                child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
-                item_url = child_item.url
-
-                if VideoDatabase().get_status(item_url) != 'Completed':
-                    VideoDatabase().set_status(item_url, 'Stopped')
-
-                time.sleep(0.1)
+            # for y in range(self.my_parent.frame_parent.layout().count()):
+            #     child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+            #     item_url = child_item.url
+            #
+            #     if VideoDatabase().get_status(item_url) != 'Completed':
+            #         VideoDatabase().set_status(item_url, 'Stopped')
+            #
+            #     time.sleep(0.1)
+            self.threadController['stop all'] = StopAllThread(self.my_parent)
+            self.threadController['stop all'].start()
 
         except Exception as e:
             print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > stop_all(): {e}")
 
     def start_all(self):
         try:
-            for y in range(self.my_parent.frame_parent.layout().count()):
-                child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
-                item_url = child_item.url
 
-                if VideoDatabase().get_status(item_url) != 'Completed':
-                    VideoDatabase().set_status(item_url, 'Waiting')
+            # for y in range(self.my_parent.frame_parent.layout().count()):
+            #     child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+            #     item_url = child_item.url
+            #
+            #     if VideoDatabase().get_status(item_url) != 'Completed':
+            #         VideoDatabase().set_status(item_url, 'Waiting')
+            #
+            #     time.sleep(0.1)
 
-                time.sleep(0.1)
+            self.threadController['stop all'] = StartAllThread(self.my_parent)
+            self.threadController['stop all'].start()
 
         except Exception as e:
             print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > start_all(): {e}")
@@ -272,16 +287,18 @@ class ParentMenuItemsList():
 
     def resolve_all_errors(self):
         try:
-            for y in range(self.my_parent.frame_parent.layout().count()):
-                child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
-                item_url = child_item.url
-
-                if child_item.error_detected is True:
-                    print('detected..............')
-                    VideoDatabase().set_status(item_url, 'Waiting')
-                    child_item.error_detected = False
-
-                time.sleep(0.1)
+            # for y in range(self.my_parent.frame_parent.layout().count()):
+            #     child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+            #     item_url = child_item.url
+            #
+            #     if child_item.error_detected is True:
+            #         print('detected..............')
+            #         VideoDatabase().set_status(item_url, 'Waiting')
+            #         child_item.error_detected = False
+            #
+            #     time.sleep(0.1)
+            self.threadController['stop all'] = ResolveAllErrorsThread(self.my_parent)
+            self.threadController['stop all'].start()
         except StoppedByUserException:
             pass
         except Exception as e:
@@ -296,18 +313,150 @@ class ParentMenuItemsList():
             if ans == QMessageBox.No:
                 raise StoppedByUserException
 
+            # for y in range(self.my_parent.frame_parent.layout().count()):
+            #     child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+            #     item_url = child_item.url
+            #
+            #     if VideoDatabase().get_status(item_url) == 'Completed':
+            #         # child_item.delete_me(prompt=False)
+            #         # child_item.hide()
+            #         GeneralFunctions().run_function(child_item.delete_me,False, False)
+            #
+            #     time.sleep(0.1)
+            self.threadController['stop all'] = RemoveCompletedThread(self.my_parent)
+            self.threadController['stop all'].start()
+        except StoppedByUserException:
+            pass
+        except Exception as e:
+            print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > remove_completed(): {e}")
+
+
+class StopAllThread(QtCore.QThread):
+    any_signal = QtCore.pyqtSignal(dict)
+
+    def __init__(self, parent):
+        super(StopAllThread, self).__init__()
+        self.my_parent = parent
+        pass
+
+    def run(self):
+        try:
+            for y in range(self.my_parent.frame_parent.layout().count()):
+                child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+                item_url = child_item.url
+
+                if VideoDatabase().get_status(item_url) != 'Completed':
+                    VideoDatabase().set_status(item_url, 'Stopped')
+
+                time.sleep(0.1)
+
+        except Exception as e:
+            print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > stop_all(): {e}")
+
+
+class StartAllThread(QtCore.QThread):
+    any_signal = QtCore.pyqtSignal(dict)
+
+    def __init__(self, parent):
+        super(StartAllThread, self).__init__()
+        self.my_parent = parent
+        pass
+
+    def run(self):
+        try:
+            for y in range(self.my_parent.frame_parent.layout().count()):
+                child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+                item_url = child_item.url
+
+                if VideoDatabase().get_status(item_url) != 'Completed':
+                    VideoDatabase().set_status(item_url, 'Waiting')
+
+                time.sleep(0.1)
+
+        except Exception as e:
+            print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > stop_all(): {e}")
+
+
+class ResolveAllErrorsThread(QtCore.QThread):
+    any_signal = QtCore.pyqtSignal(dict)
+
+    def __init__(self, parent):
+        super(ResolveAllErrorsThread, self).__init__()
+        self.my_parent = parent
+        pass
+
+    def run(self):
+        try:
+            for y in range(self.my_parent.frame_parent.layout().count()):
+                child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+                item_url = child_item.url
+
+                if child_item.error_detected is True:
+                    print('detected..............')
+                    VideoDatabase().set_status(item_url, 'Waiting')
+                    child_item.error_detected = False
+
+                time.sleep(0.1)
+
+        except Exception as e:
+            print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > stop_all(): {e}")
+
+
+class RemoveCompletedThread(QtCore.QThread):
+    any_signal = QtCore.pyqtSignal(dict)
+
+    def __init__(self, parent):
+        super(RemoveCompletedThread, self).__init__()
+        self.my_parent = parent
+        pass
+
+    def get_index(self):
+        try:
             for y in range(self.my_parent.frame_parent.layout().count()):
                 child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
                 item_url = child_item.url
 
                 if VideoDatabase().get_status(item_url) == 'Completed':
-                    # child_item.delete_me(prompt=False)
-                    # child_item.hide()
-                    GeneralFunctions().run_function(child_item.delete_me,False, False)
+                    return child_item
 
                 time.sleep(0.1)
-        except StoppedByUserException:
-            pass
+
+            return None
+        except:
+            return None
+
+    def run(self):
+        try:
+
+            # for y in range(self.my_parent.frame_parent.layout().count()):
+            #     child_item = self.my_parent.frame_parent.layout().itemAt(y).widget()
+            #     item_url = child_item.url
+            #
+            #     if VideoDatabase().get_status(item_url) == 'Completed':
+            #         index_to_delete.append(y)
+            #         # child_item.delete_me(prompt=False)
+            #         # child_item.hide()
+            #         # GeneralFunctions().run_function(child_item.delete_me, False, False)
+            #         # child_item.delete_me(False)
+
+            while True:
+                ans = self.get_index()
+                if ans is None:
+                    print('Removal of completed download Done!>>>>>>>>>>>>>>>>>>>')
+                    break
+                else:
+                    ans.busy_deleting = True
+                    GeneralFunctions().run_function(ans.delete_me, False, False)
+
+                while True:
+                    try:
+                        if ans.busy_deleting is False:
+                            break
+                    except Exception as e:
+                        break
+                    time.sleep(0.05)
+
         except Exception as e:
-            print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > remove_completed(): {e}")
+            print(f"An Error Occurred in [menuItemsList.py] > ParentMenuitemsList > stop_all(): {e}")
+
 

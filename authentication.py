@@ -217,7 +217,7 @@ class CheckMeOnServerThread(QtCore.QThread):
                             active_server = available_servers[0]
                             print(f"active server choosen: {active_server}")
 
-                        print(f"Server picked ===== >>> {active_server}")
+                        # print(f"Server picked ===== >>> {active_server}")
 
                         # encrypt it
                         encrypt_active_server = JBEncrypter().encrypt(active_server, Config().config('ENCRYPT_PASSWORD'))
@@ -347,6 +347,7 @@ class CheckMeWithLicenseThread(QtCore.QThread):
             #   a. get user > then id > use the id to add client details
             user_details = self.api.get_user_by_email(email=email)
             user_id = user_details['id']
+            username = user_details['name']
 
             new_client_data = {
                       "systemId": systemID,
@@ -376,7 +377,7 @@ class CheckMeWithLicenseThread(QtCore.QThread):
             self.database.update_setting('trial_activated', new_client_data['trialActivated'])
             self.database.update_setting('active', new_client_data['active'])
             self.database.update_setting('message_sent_successfully', new_client_data['messageSentSuccessfully'])
-            self.database.update_setting('owner', email)
+            self.database.update_setting('owner', f"{username}-{email}")
 
             return True, None
 
@@ -564,7 +565,9 @@ class RegisterNewUserThread(QtCore.QThread):
             #   2. update user with client details (add client details to the list of user)
             #   a. get user > then id > use the id to add client details
             user_details = self.api.get_user_by_email(email=email)
+
             user_id = user_details['id']
+            username = user_details['name']
 
             new_client_data = {
                       "systemId": systemID,
@@ -579,7 +582,7 @@ class RegisterNewUserThread(QtCore.QThread):
                     }
             print(f"[DEBUB][STARTUP][REGISTRATION] - adding client to user server data")
             new_client_result = self.api.create_new_client(new_client_data)
-            print(new_client_result)
+            # print(new_client_result)
 
             if new_client_result.status_code != 201: # successfully created
                 raise NewClientCreationException
@@ -594,7 +597,7 @@ class RegisterNewUserThread(QtCore.QThread):
             self.database.update_setting('trial_activated', new_client_data['trialActivated'])
             self.database.update_setting('active', new_client_data['active'])
             self.database.update_setting('message_sent_successfully', new_client_data['messageSentSuccessfully'])
-            self.database.update_setting('owner', email)
+            self.database.update_setting('owner', f"{username}-{email}")
 
             return True,None
 

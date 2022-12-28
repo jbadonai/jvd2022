@@ -9,6 +9,7 @@ from videoDatabase import VideoDatabase
 from security import JBEncrypter, JBHash
 from exceptionList import *
 
+
 # default_server = VideoDatabase().get_settings('default_server')
 # default_server = JBEncrypter().decrypt(default_server, Config().config('ENCRYPT_PASSWORD'))
 server_checker = GetServerLists()
@@ -23,10 +24,13 @@ class ApiCalls():
         self.server_search_status = "Started!"
 
     def get_default_server(self):
-        # return Config().config('LOCAL_SERVER_ADDRESS')
-
-        default_server = VideoDatabase().get_settings('default_server')
-        default_server = JBEncrypter().decrypt(default_server, Config().config('ENCRYPT_PASSWORD'))
+        lht = bool(int(VideoDatabase().get_settings('localhost_test')))
+        if lht is True:
+            print("USING LOCAL HOST AS SERVER.....................")
+            return Config().config('LOCAL_SERVER_ADDRESS')
+        else:
+            default_server = VideoDatabase().get_settings('default_server')
+            default_server = JBEncrypter().decrypt(default_server, Config().config('ENCRYPT_PASSWORD'))
 
         if default_server.__contains__('ngrok'):
             # this helps to remove landing page introduced by ngrok
@@ -88,7 +92,7 @@ class ApiCalls():
             result = requests.get(self.server)
             status_code = result.status_code
             text = result.text
-            print(status_code,"<::::>", text)
+            # print(status_code,"<::::>", text)
             if status_code == 200:
                 return True
             return False
@@ -217,7 +221,7 @@ class ServerListCheckerThread(QtCore.QThread):
         try:
             server_list = server_checker.get_server_list(Config().config("SERVER_CHECK_USERNAME"),
                                                          Config().config("SERVER_CHECK_PASSWORD"))
-            print(server_list)
+            # print(server_list)
             for index, server in enumerate(server_list):
                 # trying to give feedback of what is happening here
                 self.data_emit['message'] = f"Checking [ {index + 1}/{len(server_list)} ] - {server}"
@@ -225,12 +229,12 @@ class ServerListCheckerThread(QtCore.QThread):
 
                 self.myparent.server_search_status =f"Checking [ {index + 1}/{len(server_list)} ] - {server}"
 
-                print(f'checking server: {server}')
+                # print(f'checking server: {server}')
 
                 available = self.server_list_is_server_reachable(server)
-                print(f"avaiable? --- {available}")
+                # print(f"avaiable? --- {available}")
                 if available is True:
-                    print(f'[{server}] OK')
+                    # print(f'[{server}] OK')
                     self.available_servers.append(server)
         except:
             pass
@@ -248,11 +252,11 @@ class ServerListCheckerThread(QtCore.QThread):
             print("checking for available server........")
 
             self.check_servers()
-            print()
-            print(f"FINAL SERVER OBTAINED IN TRHEAd before emiting: {self.available_servers}")
+            # print()
+            # print(f"FINAL SERVER OBTAINED IN TRHEAd before emiting: {self.available_servers}")
             self.data_emit['server'] = self.available_servers
             self.any_signal.emit(self.data_emit)
-            print(f"it should have been emitted now")
+            # print(f"it should have been emitted now")
             self.myparent.new_server_found = True
 
         except Exception as e:

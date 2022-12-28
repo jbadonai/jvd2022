@@ -106,18 +106,24 @@ class DownloaderEngineThread(QtCore.QThread):
         self.send_message("Starting Download...")
         # download_location = self.db.get_settings('default_download_location')
         download_location = VideoDatabase().get_download_location_by_url(self.myself.url)
-        print(f"Download location at starting download: {download_location}")
+        # print(f"Download location at starting download: {download_location}")
 
+        video_extension = VideoDatabase().get_video_extension_by_url(self.myself.url)
+
+        # if self.myself.myGrandParent.radioButtonMkv.isChecked() is True:
+        #     video_extension = "webm"
 
         videoFormat = None
         if self.myself.format == "Best Quality":
-            videoFormat = "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best"
+            videoFormat = f"bestvideo[ext={video_extension}]+bestaudio[ext=m4a]/best[ext={video_extension}]/best"
         else:
-            videoFormat = str(self.myself.format).split(" ")[0].strip()
+            # [144p] - [6x144] - [17]  : 10.61 MB
+            videoFormat = str(self.myself.format).split("-")[-1].split(":")[0].replace("[","").replace("]","").strip()
 
         self.download(url=self.myself.url,
                       directory=download_location,
-                      video_format=videoFormat)
+                      video_format=videoFormat,
+                      video_extension=video_extension)
 
         pass
 
@@ -318,7 +324,8 @@ class DownloaderEngineThread(QtCore.QThread):
 
     def download(self, url,
                  directory='downloads',
-                 video_format='bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best'):
+                 video_format=None,
+                 video_extension='mp4'):
 
         # check if the root directory exists, if not create one.
         if directory == 'downloads':
@@ -326,12 +333,17 @@ class DownloaderEngineThread(QtCore.QThread):
             if os.path.exists(full_download_path) is False:
                 os.makedirs(full_download_path)
 
-        if video_format != 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best':
+        if video_format.__contains__("bestvideo") is False:
             if 'audio' not in str(video_format):
                 video_format = str(video_format).split(" ")[0].strip()
-                video_format = f"{video_format}+bestaudio[ext=m4a]/best[ext=mp4]/best"
+                video_format = f"{video_format}+bestaudio[ext=m4a]/best[ext={video_extension}]/best"
             else:
                 video_format = str(video_format).split(" ")[0].strip()
+
+        print()
+        print(f"Video format selected: {video_format}")
+        print()
+
 
         # print(f"selected format  is ::::::::::::{video_format}")
 
@@ -346,17 +358,61 @@ class DownloaderEngineThread(QtCore.QThread):
         logger = self.logger
 
         # check if Audio or vidoe is being downloaded and set youtube dl option accordingly
+        #TIPS:
+        '''
+        To download 2 through 8 ::>  --playlist-start 2 --playlist-end 8
+        To download first 5:  --playlist-end 5 
+        From 7 onward: --playlist-start 7
+        to download 2,4,6: --playlist-items 2,4,6 
+        range of videos: --playlist-items 2-3,5,8-10,18 
+        To get the last ones you should use --playlist-reverse, for example for last 6: --playlist-end 6 --playlist-reverse
+        
+        '''
+
+        '''
+        --write-sub                      Write subtitle file
+        --write-auto-sub                 Write automatic subtitle file (YouTube only)
+        --all-subs                       Download all the available subtitles of the video
+        --list-subs                      List all available subtitles for the video
+        --sub-format FORMAT              Subtitle format, accepts formats preference, for example: "srt" or "ass/srt/best"
+        --sub-lang LANGS                 Languages of the subtitles to download (optional) separated by commas, use IETF language tags like 'en,pt'
+                '''
         if self.myself.download_video is True:
             # option for downloading video
-            ydl_opts = {
-                'outtmpl': outtmpl,
-                'format': video_format,
-                'postprocesor-args': 'loglevel quiet, -8',
-                'nopart': True,
-                'quiet': True,
-                'logger': logger,
-                'progress_hooks': [self.my_hook],
-            }
+            download_subtitle = bool(int(VideoDatabase().get_download_subtitle_by_url(url)))
+            # print()
+            print(f"Download Subtitle: {download_subtitle}")
+            print(video_format)
+            # print()
+
+            if download_subtitle is True:
+                ydl_opts = {
+                    'outtmpl': outtmpl,
+                    'format': video_format,
+                    'postprocesor-args': 'loglevel quiet, -8',
+                    "postprocessors": [
+                        {
+                            "key": "FFmpegSubtitlesConvertor",
+                            "format": "srt",
+                        }
+                    ],
+                    'nopart': True,
+                    'quiet': True,
+                    'logger': logger,
+                    'progress_hooks': [self.my_hook],
+                    'writesubtitles': True,
+                    'subtitle': '--write-sub --sub-lang en --sub-format srt',
+                }
+            else:
+                ydl_opts = {
+                    'outtmpl': outtmpl,
+                    'format': video_format,
+                    'postprocesor-args': 'loglevel quiet, -8',
+                    'nopart': True,
+                    'quiet': True,
+                    'logger': logger,
+                    'progress_hooks': [self.my_hook],
+                }
         else:
             # option for downloading audio
             ydl_opts = {

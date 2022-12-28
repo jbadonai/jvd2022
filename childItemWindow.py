@@ -85,6 +85,8 @@ class ChildItemWindow(QMainWindow, childItemWindow_.Ui_MainWindow):
 
             self.textColor = TextColor()
 
+            self.busy_deleting = False
+
             self.initialize()
         except Exception as e:
             print(f"An Error Occurred in [childItemWindow.py] >  __init__ : {e}")
@@ -218,6 +220,7 @@ class ChildItemWindow(QMainWindow, childItemWindow_.Ui_MainWindow):
 
     def delete_me(self, prompt=True):
         try:
+            self.busy_deleting = True
             remaining = self.myParent.frame_parent.layout().count()
             if prompt is True:
                 # ans = QMessageBox.question(self.myGrandParent, "Delete?", f"Delete '{self.title}'",
@@ -258,7 +261,10 @@ class ChildItemWindow(QMainWindow, childItemWindow_.Ui_MainWindow):
             remaining = self.myParent.frame_parent.layout().count()
             if remaining <= 0:
                 self.myParent.close()
+
+            self.busy_deleting = False
         except Exception as e:
+            self.busy_deleting = False
             print(f"An Error Occurred in [childItemWindow.py] >  deleteme(): {e}")
             pass
 
@@ -352,17 +358,27 @@ class ChildItemWindow(QMainWindow, childItemWindow_.Ui_MainWindow):
                         self.kickstart = False
                         self.set_font_color(self.labelStatus, self.textColor.completed_color)
 
-                if status == 'Waiting' or status == "Stopped":
+                if status == 'Waiting':
                     # if self.download_in_progress is True:
                     #     self.download_in_progress = False
                     self.labelStatus.setText(status)
                     self.kickstart = False
                     # self.status_updater.stop()
                     print('Kick stater and updater stopped')
-                    if status == 'Waiting':
-                        self.set_font_color(self.labelStatus, self.textColor.waiting_color)
-                    else:
-                        self.set_font_color(self.labelStatus, self.textColor.stopped_color)
+                    # if status == 'Waiting':
+                    self.set_font_color(self.labelStatus, self.textColor.waiting_color)
+
+                if status == "Stopped":
+                    # if self.download_in_progress is True:
+                    #     self.download_in_progress = False
+                    self.labelStatus.setText(status)
+                    # self.kickstart = False
+                    # self.status_updater.stop()
+                    # print('Kick stater and updater stopped')
+                    # if status == 'Waiting':
+                    #     self.set_font_color(self.labelStatus, self.textColor.waiting_color)
+                    # else:
+                    self.set_font_color(self.labelStatus, self.textColor.stopped_color)
             else:
 
 

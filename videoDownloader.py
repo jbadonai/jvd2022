@@ -1,11 +1,12 @@
 from PyQt5.QtWidgets import QMainWindow, QApplication, QSizeGrip,QLineEdit, \
-    QMessageBox,QInputDialog, QVBoxLayout,  QSizePolicy
+    QMessageBox,QInputDialog, QVBoxLayout,  QSizePolicy, QGridLayout, QLabel
 from PyQt5.QtCore import Qt, QPropertyAnimation, QEasingCurve, QBasicTimer
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtCore
 
 import time
 import os
+import random
 
 from ui import newDownloaderInterface_
 # import newDownloaderInterface
@@ -22,14 +23,20 @@ from threadLoadParentItem import LoadParentItems
 from threadAnimations import ObjectBlinker
 from runtimeStyleSheet import  VideoDownloaderStyleSheet, ColorScheme,Proxy
 # from threadLicenseChecker import LicenseChecker
-from security import JBEncrypter, LicenseGenerator
+from security import JBEncrypter, LicenseGenerator, JBHash
 from authentication import Authentications
 from exceptionList import *
 import requests
 from environment import Config
 from dialogs import MessageBox
 import apiCalls
+import supported_sites
+from threadLoadSupportedSites import SupportedSitesLoaderThread
+from getSubtitleList import GetSubtitleList
 
+#Pyinstaller -w -y videoDownloader.spec
+
+# test subtitle::: https://www.youtube.com/watch?v=smjfGmCn7x0
 
 import yt_dlp as youtube_dl     #yt-dlp-2022.1.21, yt-dlp 2022.3.8.2
 
@@ -44,6 +51,8 @@ import yt_dlp as youtube_dl     #yt-dlp-2022.1.21, yt-dlp 2022.3.8.2
 -4, --force-ipv4                 Make all connections via IPv4
 -6, --force-ipv6                 Make all connections via IPv6
 '''
+
+# ffmpeg -i wildlife.wmv -c:v libx264 wildlife.mp4
 
 # ---------------------------
 # Global variable declaration
@@ -73,24 +82,26 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             print("[Debug] \tSetting up database")
             self.database.initialize_database()
 
-            fbConfigEnc = JBEncrypter().encrypt("http://3.95.154.119/", Config().config('ENCRYPT_PASSWORD'))
-            print("------------------DEFAULT SERVER ENC------------------------------")
-            print(fbConfigEnc)
-
-
             self.spinBoxNumberOfRetries.setStyle(Proxy())
             self.spinBoxConcurrentDownload.setStyle(Proxy())
+            p = JBHash().hash_message_with_nonce(Config().config('ENCRYPT_PASSWORD'))
+            print(p)
+
+            # title = GetSubtitleList(url='https://www.youtube.com/watch?v=4e9ouxqKfuE')
+            # print(title.get_subtitle_list())
+            #
+            # input("Wait")
 
             # stylesheet
             self.my_color_scheme = ColorScheme()
             self.my_stylesheet = VideoDownloaderStyleSheet(self, self.my_color_scheme.dark_theme())
             self.my_stylesheet.apply_stylesheet()  # apply stylesheet to self
             GeneralFunctions().centralize_main_window(self)
-            print("here")
+            # print("here")
             # [AUTHENTICATION]
             self.authentications = Authentications(self)
             self.allow_downloading = False
-            print("here")
+            # print("here")
             # print(JBEncrypter().encrypt("http://44.208.20.214/", Config().config('ENCRYPT_PASSWORD')))
 
             # custom message box
@@ -154,6 +165,11 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.parentScrollAreaWidgetContents.setLayout(self.pl)
             self.parentScrollAreaWidgetContents.setSizePolicy(sizePolicy)
 
+            # setup layout for supported sites
+            self.ssl = QGridLayout()
+            self.supportedSitesScrollAreaWidgetContents.setLayout(self.ssl)
+
+
             # Resize Grip configuration
             # -----------------------------
             QSizeGrip(self.frame_resize_grip)
@@ -190,12 +206,16 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.buttonSettings.clicked.connect(self.slideSettingsPanel)
             self.checkBoxAutoAdd.clicked.connect(self.change_settings)
             self.checkBoxCheckInternetSpeed.clicked.connect(self.change_settings)
+            self.checkBoxTooltipAssistance.clicked.connect(self.change_settings)
             self.buttonExpandAll.clicked.connect(self.expand_all)
             self.buttonCollapseAll.clicked.connect(self.collapse_all)
             # self.textLicense.textChanged.connect(self.proof_read_license_code)
             self.buttonTitleIcon.clicked.connect(self.about_me)
             self.buttonUser.clicked.connect(self.about_user)
             self.buttonUser.setToolTip("License Owner! Click for more...")
+            self.buttonDoneWithLocalhostTest.clicked.connect(self.done)
+            self.checkBoxTestWithLocalhost.clicked.connect(self.localhost_test_switch)
+            self.buttonViewSupportedSites.clicked.connect(self.view_supported_site)
 
             # application ACTIVATION
             # ----------------------------------------------------------------------------
@@ -225,13 +245,91 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             self.license_point_of_failure = None
             self.activated = False # keep track of app activation status
             self.checking_available_server_in_progress = False
+            self.milestone_ready = True
+
+            self.ss_loader_busy = False
+            self.load_supported_sites()
+
+            # want to use this to create a channel folder if multiple playlist is detected
+            self.channelDownload = False
+            self.channelName = None
+            self.duplicateVideoEntry = 0
 
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > __init__(): {e}")
 
+    def view_supported_site(self):
+        if self.buttonViewSupportedSites.isChecked():
+            self.mainStackedWidget.setCurrentWidget(self.PageSupportedSites)
+            self.buttonViewSupportedSites.setText("Show Download Page")
+            # self.load_supported_sites()
+        else:
+            self.mainStackedWidget.setCurrentWidget(self.PageDownloader)
+            self.buttonViewSupportedSites.setText("View Supported Sites")
+
+    def load_supported_sites_bak(self):
+        try:
+            ss = supported_sites.get_supported_site()
+            total = len(ss)
+            col = 4
+            row = round(total/col) + 1
+
+            counter = 0
+            for i in range(1, row):
+                for j in range(1, col + 1):
+                    try:
+                        site = QLabel()
+                        site.setText(ss[counter].split(":")[0])
+                        site.setWordWrap(True)
+                        # site.setMaximumWidth(200)
+                        counter += 1
+                        site.setStyleSheet("color: rgb(0,255,127); background-color: rgb(35,35,35); border: 1px solid gray; border-radius: 15px; margin: 10px, 0px; padding:10px; font-size:11pt")
+                        self.supportedSitesScrollAreaWidgetContents.layout().addWidget(site, i, j)
+                    except:
+                        continue
+        except Exception as e:
+            pass
+
+    def load_supported_sites(self):
+        self.counter = 0
+        try:
+            def supported_site_connector(data):
+                # print(data)
+
+                if 'text' in data:
+                    self.counter += 1
+                    site = QLabel()
+                    site.setText(data['text'])
+                    site.setWordWrap(True)
+                    if data['tooltip'] is not None:
+                        site.setToolTip(data['tooltip'])
+                    site.setStyleSheet("color: rgb(0,255,127); "
+                                       "background-color: rgb(35,35,35); "
+                                       "border: 1px solid gray; "
+                                       "border-radius: 15px; "
+                                       "margin: 10px, 0px; "
+                                       "padding:10px; "
+                                       "font-size:11pt")
+
+                    self.supportedSitesScrollAreaWidgetContents.layout().addWidget(site, data['row'], data['col'])
+                    self.ss_loader_busy = False
+                    self.labelSupportedSiteTitle.setText(f"Supported Sites List -- Loading [{self.counter}]...")
+
+                if 'completed' in data:
+                    self.labelSupportedSiteTitle.setText("Supported Sites List")
+                    pass
+
+            self.threadController['supported sites'] = SupportedSitesLoaderThread(self)
+            self.threadController['supported sites'].start()
+            self.threadController['supported sites'].any_signal.connect(supported_site_connector)
+
+        except Exception as e:
+            pass
+
     def reset_me(self):
         user = self.database.get_settings('owner')
-        if str(user).__contains__("_"):
+        print(user)
+        if str(user).__contains__("-"):
             username = str(user).split("-")[0].strip()
             email = str(user).split("-")[1].strip()
         else:
@@ -249,7 +347,20 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                         pass
 
                     self.restart_app(False)
-                    #reset
+                elif password == "Show Local Host Test":
+                    self.frame_test_with_localhost.setVisible(True)
+
+    def done(self):
+        self.checkBoxTestWithLocalhost.setChecked(False)
+        self.frame_test_with_localhost.setVisible(False)
+
+    def localhost_test_switch(self):
+        if self.checkBoxTestWithLocalhost.isChecked() is True:
+            self.database.update_setting('localhost_test', True)
+            self.labelTitle.setText("JBA Video Downloader -- [Server: Localhost]")
+        else:
+            self.database.update_setting('localhost_test', False)
+            self.labelTitle.setText("JBA Video Downloader")
 
     def about_me(self):
         self.msgBox.show_information("About","JBADONAI VIDEO DOWNLOADER (JVD)\n\n"
@@ -261,6 +372,7 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
     def about_user(self):
         try:
             user = self.database.get_settings('owner')
+
             if str(user).__contains__("-"):
                 username = str(user).split("-")[0].strip()
                 email = str(user).split("-")[1].strip()
@@ -268,12 +380,16 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                 username = email = user
 
             key = self.database.get_settings('trial_key')
+            key_dec = JBEncrypter().decrypt(key, Config().config("ENCRYPT_PASSWORD"))
+            license_type = str(key_dec).split("'")[0]
+
             key = f"{key[:40]} ... {key[-40:]}"
             self.msgBox.show_information("About",f"This application is licensed to:\n"
             f"\t{username}\n"
             f"\t{email}\n\n"
-            f"License key: [\n"
-            f"{key}\n]\n\n\n"                                             
+            f"License Type: {license_type}\n\n"
+            f"License key: "
+            f"{key}\n\n\n"                                             
             f"jbadonaiventures Copyright: \xa9 2022")
         except SoftLandingException:
             pass
@@ -324,6 +440,8 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
         global restart
         restart = False
         try:
+            self.mainStackedWidget.setCurrentWidget(self.PageDownloader)
+
             print("[Debug] Main Window Initialize Start: initialize()")
             self.labelAbout.setText("jbadonaiventures Copyright: \xa9 2022")
 
@@ -384,14 +502,31 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
 
             # --> FINE TUNE
             self.buttonAddNewDownload.setText("\tAdd to download List") # change text on the add download button
-            self.groupBoxPlaylistOption.setVisible(False)   # hide playlist groupbox
             self.textAddNewURL.setFocus() # set focus on the url text box
             self.buttonTheme.setVisible(False)
+            self.frame_retries.setVisible(False)
+            self.radioButtonVideoDownload.setChecked(True)
+            self.radioButtonMp4.setChecked(True)
+
+            lht = bool(int(VideoDatabase().get_settings('localhost_test')))    # local host test value
+
+            if lht is False:
+                self.frame_test_with_localhost.setVisible(False)
+                self.labelTitle.setText("JBA Video Downloader")
+            else:
+                self.frame_test_with_localhost.setVisible(True)
+                self.checkBoxTestWithLocalhost.setChecked(lht)
+                self.labelTitle.setText("JBA Video Downloader -- [Server: Localhost]")
 
             # SERVERS CHECK
             sl = self.generalFunction.get_server_list_from_db()
             print(f"Server list before update: {sl}")
             self.find_available_server()
+
+            #   tooltip assistance
+            tt = bool(int(self.database.get_settings('tooltip_assistance')))
+            if tt is False:
+                self.disable_tooltip()
 
             # self.buttonActivate.setVisible(False)
         except Exception as e:
@@ -460,13 +595,9 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                 # Extract info from the key
                 #   a. get the license from db
                 lic = self.generalFunction.get_trial_key()
-                print()
-                print(lic)
-                print()
 
                 #   b. decrypt the license
                 licDecrypted = JBEncrypter().decrypt(lic, Config().config("ENCRYPT_PASSWORD"))
-                print(licDecrypted)
 
                 # check if license is not valid
                 if licDecrypted is None:
@@ -495,6 +626,37 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
         except:
             pass
 
+    def disable_tooltip(self):
+        self.buttonViewSupportedSites.setToolTip("")
+        self.buttonActivate.setToolTip("")
+        self.buttonCollapseAll.setToolTip("")
+        self.buttonDelete.setToolTip("")
+        self.buttonExpandAll.setToolTip("")
+        self.buttonSettings.setToolTip("")
+        self.buttonUser.setToolTip("")
+        self.textOwner.setToolTip("")
+        self.buttonTheme.setToolTip("")
+        self.buttonAddNewDownload.setToolTip("")
+        self.comboBoxSelectFormat.setToolTip("")
+        self.radioButtonMp4.setToolTip("")
+        self.radioButtonMkv.setToolTip("")
+        self.radioButtonVideoDownload.setToolTip("")
+        self.radioButtonAudioDownload.setToolTip("")
+        self.textAddNewURL.setToolTip("")
+        self.buttonHideShowAddNew.setToolTip("")
+        self.labelAddNewStatus.setToolTip("")
+        self.buttonDownloadSubtitleSettings.setToolTip("")
+        self.checkBoxDownloadSubtitle.setToolTip("")
+        self.checkBoxAutoAdd.setToolTip("")
+        self.checkBoxCheckInternetSpeed.setToolTip("")
+        self.labelConcurrentDownload.setToolTip("")
+        self.spinBoxConcurrentDownload.setToolTip("")
+        self.buttonBrowseDownloadLocation.setToolTip("")
+        self.textDownloadLocation.setToolTip("")
+        self.labelRetries.setToolTip("")
+        self.spinBoxNumberOfRetries.setToolTip("")
+        self.checkBoxTooltipAssistance.setToolTip("")
+
     def disable_downloading(self):
         self.allow_downloading = False
         pass
@@ -506,13 +668,25 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
     def start_extraction(self):
 
         def loading_connector(data):
+
             try:
                 # print("[DATA] ", data)
                 if data['info'] != "Completed!":
-                    self.main_message = f"Please Wait... \n\n{data['info']}"
+                    self.main_message = f"Parsing Video. Please Wait... \n\n{data['info']}"
 
                     myInfo = str(data['info'])
                     errorMessage = myInfo.split(":")[-1]
+
+                    # print(f"Milesone: {data['milestone']}")
+                    if data['milestone'] is True:
+                        # Auto add download to the download list
+                        # self.radioButtonVideoDownload.setChecked(True)
+                        # self.radioButtonMp4.setChecked(True)
+                        self.comboBoxSelectFormat.setCurrentIndex(0)
+                        self.buttonAddNewDownload.click()
+                        self.milestone_ready = True
+
+
 
                     if myInfo.__contains__("Error!"):
                         if errorMessage != "":
@@ -531,66 +705,78 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
 
                             self.msgBox.show_information("Error!", f"Could not extract data for the selected url."
                             f" \n\nPlease check your internet connection or try another url.")
-
-
-
                 else:
-                    self.main_message = data['info']
-                    if self.checkBoxAutoAdd.isChecked() is False:
-                        if self.private_video_count > 0:
-                            if self.private_video_count == 1:
-                                # QMessageBox.information(self, "Completed!", f"Video Data Extraction Completed! \n"
-                                #                                             f"[ {self.private_video_count} Private video detected and skipped! ]\n\n"
-                                #                                             f"1. Select your desired Download/Format Option. \n\n"
-                                #                                             f"2. Click 'Add Add To Download List' button")
-                                self.msgBox.show_information("Completed!", f"Video Data Extraction Completed! \n"
-                                                                            f"[ {self.private_video_count} Private video detected and skipped! ]\n\n"
-                                                                            f"1. Select your desired Download/Format Option. \n\n"
-                                                                            f"2. Click 'Add To Download List' Button")
-
-                            else:
-                                # QMessageBox.information(self, "Completed!", f"Video Data Extraction Completed! \n"
-                                #                                             f"[ {self.private_video_count} Private videos detected and skipped! ]\n\n"
-                                #                                             f"1. Select your desired Download/Format Option. \n\n"
-                                #                                             f"2. Click 'Add'")
-
-                                self.msgBox.show_information("Completed!", f"Video Data Extraction Completed! \n"
-                                                                            f"[ {self.private_video_count} Private videos detected and skipped! ]\n\n"
-                                                                            f"1. Select your desired Download/Format Option. \n\n"
-                                                                            f"2. Click 'Add To Download List' Button")
-
+                    if self.duplicateVideoEntry > 0:
+                        if self.duplicateVideoEntry == 1:
+                            self.msgBox.show_information("Duplicate Video", f"Completed! But {self.duplicateVideoEntry} duplicate url(s) were found to be existing in your download list and were skipped!")
                         else:
-                            # QMessageBox.information(self, "Completed!", "Video Data Extraction Completed! \n\n"
-                            #                                             "1. Select your desired Download/Format Option. \n\n"
-                            #                                             "2. Click 'Add' ")
-
-                            self.msgBox.show_information("Completed!", "Video Data Extraction Completed! \n\n"
-                                                                        "1. Select your desired Download/Format Option. \n\n"
-                                                                        "2. Click 'Add To Download List' Button ")
-
-
-                        self.radioButtonVideoDownload.setChecked(True)
-                        self.comboBoxSelectFormat.setCurrentIndex(0)
+                            self.msgBox.show_information("Duplicate Video", f"Completed! But {self.duplicateVideoEntry} duplicate url(s) were found to be existing in your download list and were skipped!")
                     else:
-                        # Auto add download to the download list
-                        self.radioButtonVideoDownload.setChecked(True)
-                        self.comboBoxSelectFormat.setCurrentIndex(0)
-                        self.buttonAddNewDownload.click()
-                        # QMessageBox.information(self, "Added successfully", "Your Video has been successfully added to the download list.")
-                        self.msgBox.show_information("Added successfully", "Your Video has been successfully added to the download list.")
+                        self.labelAddNewStatus.setText("Completed!")
+                        # self.msgBox.show_information("completed", "completed")
 
-                pass
+                # else:
+                #     self.main_message = data['info']
+                #     if self.checkBoxAutoAdd.isChecked() is False:
+                #         if self.private_video_count > 0:
+                #             if self.private_video_count == 1:
+                #                 # QMessageBox.information(self, "Completed!", f"Video Data Extraction Completed! \n"
+                #                 #                                             f"[ {self.private_video_count} Private video detected and skipped! ]\n\n"
+                #                 #                                             f"1. Select your desired Download/Format Option. \n\n"
+                #                 #                                             f"2. Click 'Add Add To Download List' button")
+                #                 self.msgBox.show_information("Completed!", f"Video Data Extraction Completed! \n"
+                #                                                             f"[ {self.private_video_count} Private video detected and skipped! ]\n\n"
+                #                                                             f"1. Select your desired Download/Format Option. \n\n"
+                #                                                             f"2. Click 'Add To Download List' Button")
+                #
+                #             else:
+                #                 # QMessageBox.information(self, "Completed!", f"Video Data Extraction Completed! \n"
+                #                 #                                             f"[ {self.private_video_count} Private videos detected and skipped! ]\n\n"
+                #                 #                                             f"1. Select your desired Download/Format Option. \n\n"
+                #                 #                                             f"2. Click 'Add'")
+                #
+                #                 self.msgBox.show_information("Completed!", f"Video Data Extraction Completed! \n"
+                #                                                             f"[ {self.private_video_count} Private videos detected and skipped! ]\n\n"
+                #                                                             f"1. Select your desired Download/Format Option. \n\n"
+                #                                                             f"2. Click 'Add To Download List' Button")
+                #
+                #         else:
+                #             # QMessageBox.information(self, "Completed!", "Video Data Extraction Completed! \n\n"
+                #             #                                             "1. Select your desired Download/Format Option. \n\n"
+                #             #                                             "2. Click 'Add' ")
+                #
+                #             self.msgBox.show_information("Completed!", "Video Data Extraction Completed! \n\n"
+                #                                                         "1. Select your desired Download/Format Option. \n\n"
+                #                                                         "2. Click 'Add To Download List' Button ")
+                #
+                #
+                #         self.radioButtonVideoDownload.setChecked(True)
+                #         self.radioButtonMp4.setChecked(True)
+                #         self.comboBoxSelectFormat.setCurrentIndex(0)
+                #     else:
+                #         # Auto add download to the download list
+                #         self.radioButtonVideoDownload.setChecked(True)
+                #         self.radioButtonMp4.setChecked(True)
+                #         self.comboBoxSelectFormat.setCurrentIndex(0)
+                #         self.buttonAddNewDownload.click()
+                #         # QMessageBox.information(self, "Added successfully", "Your Video has been successfully added to the download list.")
+                #         self.msgBox.show_information("Added successfully", "Your Video has been successfully added to the download list.")
+                #
+                # pass
             except Exception as e:
                 print(f"An error occurred in [videoDownloader.py] > start_extraction() > loading_connector() : {e}")
 
         try:
             if self.textAddNewURL.text() != "":
                 if self.allow_downloading is False:
-                    raise NotActivatedException
+                    # LOCK
+                    # raise NotActivatedException
+                    pass
                 try:
                     # 1. check if the app is not busy with a request
                     if self.busy is False:
                         self.busy = True
+                        self.duplicateVideoEntry = 0
 
                         # 2. Get the url user want to download
                         url = self.textAddNewURL.text()
@@ -686,7 +872,6 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                 # self.add_parent_item(self.common_title, self.download_entries)
                 self.add_new_loader.start_adding_new_items(self.download_entries)
 
-
                 self.textAddNewURL.clear()
                 self.reset_variables()
         except Exception as e:
@@ -699,7 +884,27 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                 self.download_entries[index]['format'] = self.comboBoxSelectFormat.currentText()
                 self.download_entries[index]['status'] = "Waiting"
                 self.download_entries[index]['download_all'] = True
-                self.download_entries[index]['download_location'] = self.textDownloadLocation.text()
+
+                if self.channelDownload is True:
+                    if self.channelName is None:
+                        self.channelName = f"Channel__{random.randint(11111, 99999)}"
+
+                    channel, subChannel = str(self.channelName).split("__")
+                    # path = os.path.join(self.textDownloadLocation.text(), self.channelName)
+                    path = os.path.join(self.textDownloadLocation.text(), channel, subChannel)
+                    self.download_entries[index]['download_location'] = path
+                else:
+                    self.download_entries[index]['download_location'] = self.textDownloadLocation.text()
+                self.download_entries[index]['download_subtitle'] = self.checkBoxDownloadSubtitle.isChecked()
+
+                video_extension = 'mp4'
+                if self.radioButtonMkv.isChecked() is True:
+                    video_extension = "webm"
+                else:
+                    video_extension = "mp4"
+                self.download_entries[index]['video_extension'] = video_extension
+
+
 
             pass
         except Exception as e:
@@ -901,6 +1106,10 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                     self.frame_main_settings.setVisible(True)
                     self.frame_main_settings.setMaximumWidth(int(width/3.5))
                     self.frame_main_settings.setMinimumWidth(int(width/3.5))
+
+                if self.buttonViewSupportedSites.isChecked():
+                    # self.mainStackedWidget.setCurrentWidget(self.PageDownloader)
+                    self.buttonViewSupportedSites.click()
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > slideSettingsPanel() \n >>>{e}")
 
@@ -1033,12 +1242,14 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
             max_retries = self.database.get_settings('max_retries')
             auto_add = self.database.get_settings('auto_add_new_download')
             check_internet_speed = self.database.get_settings('check_internet_speed')
+            tooltip_assistance = self.database.get_settings('tooltip_assistance')
 
             self.textDownloadLocation.setText(downloadLocation)
             self.spinBoxConcurrentDownload.setValue(int(max_downloads))
             self.spinBoxNumberOfRetries.setValue(int(max_retries))
             self.checkBoxAutoAdd.setChecked(int(auto_add))
             self.checkBoxCheckInternetSpeed.setChecked(int(check_internet_speed))
+            self.checkBoxTooltipAssistance.setChecked(bool(int(tooltip_assistance)))
         except Exception as e:
             print(f"An error occurred in [videoDownloader.py] > load_settings(): {e}")
 
@@ -1074,6 +1285,19 @@ class JBVideoDownloader(QMainWindow, newDownloaderInterface_.Ui_MainWindow):
                     # self.frame_internet_speed.setVisible(False)
                     self.stop_internet_speed_check()
                     self.database.update_setting("check_internet_speed", False)
+
+            if sender.objectName() == self.checkBoxTooltipAssistance.objectName():
+                self.msgBox.show_question("Change Settings?", "Changing this settings requires application restart, Continue?")
+                if self.msgBox.Yes is True:
+                    if self.checkBoxTooltipAssistance.isChecked() is True:
+                        self.database.update_setting('tooltip_assistance', True)
+                    else:
+                        self.database.update_setting('tooltip_assistance', False)
+
+                    self.restart_app(False)
+
+                else:
+                    self.checkBoxTooltipAssistance.setChecked(not self.checkBoxTooltipAssistance.isChecked())
 
 
 

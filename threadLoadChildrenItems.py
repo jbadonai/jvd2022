@@ -92,6 +92,7 @@ class LoadChildrenItemsThread(QtCore.QThread):
                 self.any_signal.emit(self.data_to_emit)
                 time.sleep(0.2)
 
+
         except StoppedByUserException:
             print("stopped by user")
         except Exception as e:

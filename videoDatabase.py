@@ -33,7 +33,9 @@ class VideoDatabase():
             playlist_url TEXT NULL,
             thumbnail TEXT,
             status TEXT,
-            download_location TEXT        
+            download_location TEXT, 
+            download_subtitle BOOL,
+            video_extension TEXT
             )
             '''
             cursor.execute(command)
@@ -77,16 +79,18 @@ class VideoDatabase():
         thumbnail = data['thumbnail']
         status = data['status']
         downloadLocation = data['download_location']
+        downloadSubtitle = data['download_subtitle']
+        videoExtension = data['video_extension']
 
         try:
             connection = sqlite3.connect(self.dbname)
             cursor = connection.cursor()
 
             cursor.execute('INSERT INTO VideoData '
-                           '(download_video, download_all, format, url, title, is_playlist, playlist_index, playlist_title, playlist_url, thumbnail, status, download_location) '
-                           'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+                           '(download_video, download_all, format, url, title, is_playlist, playlist_index, playlist_title, playlist_url, thumbnail, status, download_location, download_subtitle, video_extension) '
+                           'VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
                            (downloadVideo, downloadAll, format, url, title, isPlaylist, playlistIndex, playlistTitle,
-                            playlistURL, thumbnail, status, downloadLocation))
+                            playlistURL, thumbnail, status, downloadLocation, downloadSubtitle, videoExtension))
             connection.commit()
 
         except Exception as e:
@@ -263,6 +267,34 @@ class VideoDatabase():
         data = cursor.fetchall()
 
         return data[0]
+        # except Exception as e:
+        #     print(f"An error occurred in database module ' GET STATUS' : {e}")
+        #     return 'e'
+
+    def get_download_subtitle_by_url(self, url):
+        ''' gets status of the specified url '''
+        # try:
+        connection = sqlite3.connect(self.dbname)
+        cursor = connection.cursor()
+
+        cursor.execute('select download_subtitle from VideoData where url = ? ', (url,))
+        data = cursor.fetchall()
+
+        return data[0][0]
+        # except Exception as e:
+        #     print(f"An error occurred in database module ' GET STATUS' : {e}")
+        #     return 'e'
+
+    def get_video_extension_by_url(self, url):
+        ''' gets status of the specified url '''
+        # try:
+        connection = sqlite3.connect(self.dbname)
+        cursor = connection.cursor()
+
+        cursor.execute('select video_extension from VideoData where url = ? ', (url,))
+        data = cursor.fetchall()
+
+        return data[0][0]
         # except Exception as e:
         #     print(f"An error occurred in database module ' GET STATUS' : {e}")
         #     return 'e'
@@ -517,6 +549,9 @@ class VideoDatabase():
             if self.is_setting_key_in_database("server_list") is False:
                 self.setup_create_settings("server_list", None)
 
+            if self.is_setting_key_in_database("localhost_test") is False:
+                self.setup_create_settings("localhost_test", False)
+
             if self.is_setting_key_in_database("default_server") is False:
                 self.setup_create_settings("default_server", b'gAAAAABjkzU6SloQLb0TU7BKTE3Of2Fr7R55NEy0cdgamyvvoEkp_Zfq7dS6XeymioKJJcBzhnYvGFT0Hmdo-gBBJE1MFqNEPRSK7qG1mKf3xRGQbA9uLB0=')
 
@@ -537,6 +572,10 @@ class VideoDatabase():
             # Auto add new download to the download list
             if self.is_setting_key_in_database("auto_add_new_download") is False:
                 self.setup_create_settings("auto_add_new_download", True)
+
+            # tooltip help
+            if self.is_setting_key_in_database("tooltip_assistance") is False:
+                self.setup_create_settings("tooltip_assistance", True)
 
             # Auto start waiting download
             if self.is_setting_key_in_database("auto_start_waiting_download") is False:

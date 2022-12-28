@@ -114,6 +114,8 @@ class ParentItemWindow(QMainWindow, parentItemWindow_.Ui_MainWindow):
         '''
         Refresh playlist to detect newly added video to the playlist
         '''
+        # sender = self.sender().objectName()
+        # self.msgBox.show_information("Sender", f"{sender}")
 
         if self.refreshBusy is False:
             self.refreshBusy = True
@@ -127,6 +129,7 @@ class ParentItemWindow(QMainWindow, parentItemWindow_.Ui_MainWindow):
             pass
         else:
             print("Busy!")
+            # self.msgBox.show_information("busy", "Busy!")
 
     def load_refreshed_data(self, data):
         # should be called from the thread when data extraction is completed
@@ -146,14 +149,15 @@ class ParentItemWindow(QMainWindow, parentItemWindow_.Ui_MainWindow):
         self.parent.blinkerList[self.playlistTitle].stop_blinking()
 
 
+
         if total > 0:
             old = int(self.labelTitleTotalVideo.text())
             self.labelTitleTotalVideo.setText(str(old + total))
             # QMessageBox.information(self, 'Refresh Completed!', f"Refresh Completed for {self.playlistTitle}. {total} new link detected and has been added to the playlist download list.")
-            self.msgBox.show_question('Refresh Completed!', f"Refresh Completed for {self.playlistTitle}. {total} new link detected and has been added to the playlist download list.")
+            self.msgBox.show_information('Refresh Completed!', f"Refresh Completed for {self.playlistTitle}. {total} new link detected and has been added to the playlist download list.")
         else:
             # QMessageBox.information(self, "Refresh Completed!", f"Playlist is up to date! No new link found for {self.playlistTitle}")
-            self.msgBox.show_question("Refresh Completed!", f"Playlist is up to date! No new link found for {self.playlistTitle}")
+            self.msgBox.show_information("Refresh Completed!", f"Playlist is up to date! No new link found for {self.playlistTitle}")
 
     def update_download_entries(self):
         for index, entry in enumerate(self.download_entries):

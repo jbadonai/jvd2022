@@ -402,15 +402,16 @@ class GeneralFunctions():
     def convert_size(self, size_bytes):
         ''' This function converts size in bytes to respective value in KB, MB, GB...'''
         try:
-            if size_bytes == 0:
-                return "0B"
+            if size_bytes == 0 or size_bytes is None:
+                return "Unknown File Size"
             size_name = ("B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB")
             i = int(math.floor(math.log(size_bytes, 1024)))
             p = math.pow(1024, i)
             s = round(size_bytes / p, 2)
             return "%s %s" % (s, size_name[i])
         except Exception as e:
-            print(f"An Error Occurred in [generalFunctions.py] > convert_siae(): {e}")
+            print(f"An Error Occurred in [generalFunctions.py] > convert_size({size_bytes}): {e}")
+            return (0, "B")
 
     def IsInternet(self):
         try:
